@@ -1,4 +1,4 @@
-Cari Amic* di Potere al Popolo,
+Car* Amic* di Potere al Popolo,
 sono Winston e vi scrivo dal Cyberspazio.
 
 Abbiamo salutato con grande letizia la vostra scelta di non terziarizzare i vostri stumenti di comunicazione e discussione perchè questa vi rende indipendenti dalla
