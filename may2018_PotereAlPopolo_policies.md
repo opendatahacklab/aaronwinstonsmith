@@ -33,3 +33,6 @@ Un bacio,
 Aaron Winston Smith, #lifeoutoffb
 
 PS: c'è anche un typo error nella pagina sopracitata: "a questa forum" dovrebbe essere "a questo forum".
+
+NOTE LEGALI: i contenuti di questo post sono rilasciati con licenza Creative Commons Attribuzione CC-BY-4.0. Come tali chiunque può riusarli in qualsiasi modo con l'unico obbligo di 
+citare il post originale. 
