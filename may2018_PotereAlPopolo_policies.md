@@ -1,4 +1,4 @@
-Cari Amic* di Potere al Popolo,
+Car* Amic* di Potere al Popolo,
 sono Winston e vi scrivo dal Cyberspazio.
 
 Abbiamo salutato con grande letizia la vostra scelta di non terziarizzare i vostri stumenti di comunicazione e discussione perchè questa vi rende indipendenti dalla
@@ -31,3 +31,5 @@ Sperando di avere fatto qualcosa di utile con questo comunicato, cogliamo l'occa
 
 Un bacio,
 Aaron Winston Smith, #lifeoutoffb
+
+PS: c'è anche un typo error nella pagina sopracitata: "a questa forum" dovrebbe essere "a questo forum".
