@@ -60,7 +60,53 @@ atteggiamento cambi, innanzitutto, provo io stesso a cambiare e a portare un mio
 quanto infinitesimo, questo contributo è qualcosa ed è un vero cambiamento. Se tutti apportassero un contributo infinitesimo, la somma totale sarebbe
 notevole e il mondo cambierebbe davvero.
 
+Appendice
+------------------
 
+Questa appendice è per coloro che non amano la religione, pur essendo da piccoli stati educati e introdotti in chiesa. Qui di seguito espongo la mia visione
+su Dio. È una mia visione personale, ma la condivido come esempio. Ognuno può arrivare liberamente alla sua visione personale e credere e vivere la sua 
+religione. Se poi, un gruppo di persone si ritrova in una visione personale comune, meglio ancora.
 
+Dio sono io ed ogni altra persona che incontro nella mia vita è Dio.
 
+Dio è una oggettificazione della mia anima. Il mio cervello crea oggetti: persone, animali, cose (chiamiamoli tutti “oggetti” per comodità). Dio è un qualsiasi 
+“oggetto” immaginato o vero che io e le persone con cui stò troviamo importante. Tra tutti i possibili oggetti, quelli più importanti siamo noi stessi, ovvero io 
+e ognuna delle persone con cui stò. “Importante” è inteso anche come buono, giusto, bravo, etc...
+
+Non c'è bisogno che Dio abbia poteri soprannaturali. Già la natura è sorprendente e i veri poteri sono le capacità che ogni uomo ha e che può sviluppare. Ad 
+esempio, io “creo” ogni cosa che vedo, vivo, sento. Le forme, lo spazio, i suoni sono prodotto della mia mente. Sono un prodotto vero: quando vedo un muro 
+solido, la mente dice “muro solido”, io le credo e così vedo un muro solido. Quindi, io stò “creando” il muro solido. Un altro modo è dire che in realtà il muro 
+non esiste, esso è una mia credenza. La scienza insegna che è meglio verificare le proprie credenze. Allora, quando mi avvicinerò al muro e lo toccherò, potrò
+rendermi conto se è un muro solido oppure un muro leggero di cartongesso. Ma sarò sempre io a credere una cosa piuttosto che un'altra. Insomma, la verità
+è un prodotto della mia mente a cui io credo. (È un prodotto utile e a volte importante. Come fà ad essere così, è meglio non chiederlo, ma intuirlo piano piano
+nel tempo). Così come il muro, ogni altra cosa. Ciò che è vero riguardo l'universo è una serie di verità che degli uomini (gli scienziati) hanno prodotto e a cui 
+loro credono, e a cui io, fidandomi di loro, credo pure.
+
+Ritornando al discorso delle capacità di ogni uomo, un altro esempio è questo: io non mi perdo e riesco a tornare a casa grazie alla mia capacità di orientarmi. 
+Ciò che vale per me vale anche per le persone che conosco: esse hanno le mie stesse capacità. E inoltre, le persone più vicine a me, mi conoscono e sono felici
+per me quando sono felice e si dispiacciono quando sono triste.
+
+Questi esempi sono già sorprendenti e miracolosi. Pensando a queste cose, non ho desiderio di alcun altro miracolo. Certo, i miracoli di guarigione potrebbero
+essere importanti. Però, il corpo è una macchina meravigliosa: milioni di cellule che collaborano in perfetta sincronia. Anche vivendo per un solo giorno, il mio
+corpo è riuscito in un'impresa epica. La malattia è un qualche limite o intoppo che incontra la macchina corpo e che può pregiudicare il suo normale 
+funzionamento. Ma pensando alla straordinaria cosa che è il corpo, cosa voglio di più? (Certo, è anche giusto non arrendersi alla malattia e non smettere di
+sperare nella guarigione).
+
+Dio è anche lo zero: è quella cosa che c'è quando non c'è niente. Quando non ci sono io, quando non c'è nessun altro c'è comunque Dio.
+
+Come faccio a non esserci? Quando smetto di volere dopo aver avuto a sufficienza, non ci sono più, c'è solo Pace, c'è Dio. A volte è difficile riconoscere di aver
+già avuto a sufficienza. Ci vuole pratica. Anche se sembra semplice non è banale riuscirci, perchè a volte quando desideriamo o vogliamo qualcosa, è difficile
+rendersi conto che già abbiamo avuto a sufficienza e che possiamo essere felici così.
+
+Lo stesso vale per un altra persona: quando vedo che lei (o lui) ha già avuto a sufficienza ed è contenta, c'è solo la sua contentezza, c'è solo la sua Pace.
+
+Dio è una combinazione dello zero, di me stesso e delle altre persone che incontro. Infatti, non sempre sono bravo, non sempre una persona è buona, però c'è 
+lo zero e quindi quando smetto di volere, quando mi accontento a buona ragione di ciò che riesco a fare e di ciò che è una persona, ritrovo Dio.
+
+Perchè questo discorso su Dio? Dio è un concetto utile e importante e ognuno dovrebbe essere in grado di raggiungere le sue conclusioni su Dio, così come ho
+fatto io. Chiaramente, rispettando le conclusioni e il credo altrui.
+
+Intraprendere un percorso interiore fornisce strumenti utili per raggiungere questo fine.
+
+_Antonio Giovane Uomo_
 
