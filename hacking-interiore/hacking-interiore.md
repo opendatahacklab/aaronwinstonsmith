@@ -4,11 +4,11 @@ Hacking interiore
 Questa lettera è un appello agli hacker che vogliono raggiungere i limiti della conoscenza e che vogliono cambiare il mondo: una conoscenza completa 
 e profonda oltre ad essere fatta di codice, manuali e matematica è fatta di studio della propria anima.
 
-Lo studio della propria anima è un percorso interiore finalizzato a comprendere a fondo temi  per se importanti. Ad esempio, io non sopportavo la città perchè 
+Lo studio della propria anima è un percorso interiore finalizzato a comprendere a fondo temi  per sé importanti. Ad esempio, io non sopportavo la città perchè 
 quando camminavo per le strade vedevo un fiume di persone che non erano minimamente interessate ai miei problemi e alla mia vita. Ora stò riscoprendo una
 fiducia negli altri che mi fa pensare che, in realtà, tutte le persone hanno un cuore e che, se avessero il tempo, si interesserebbero ai miei problemi, e che già sono
 sicuramente impegnate a prendersi cura dei loro amici e parenti. Adesso che ho raggiunto queste conclusioni, cammino nelle strade della città con serenità 
-e senza più il peso di prima. Questo è un esempio e ci possono essere temi  per se più importanti o meno importanti. Man mano che si comprendono questi temi,
+e senza più il peso di prima. Questo è un esempio e ci possono essere temi  per sé più importanti o meno importanti. Man mano che si comprendono questi temi,
 si ci libera da pesi e si acquisisce coraggio. Si affrontano difficoltà che erano state messe da parte. Si gode dei frutti che erano stati raccolti da tempo ma che, 
 tuttavia, non venivano consumati. Tutto questo conduce sempre più a una gioia e pace profonda.
 
@@ -29,7 +29,7 @@ maestri Sufi, ancora più ad oriente i maestri Zen. Nella cultura scientifica oc
 Un pregiudizio classico è che loro siano utili solo a chi ha seri disturbi interiori. Questo è un pregiudizio. Nulla vieta di intraprendere con uno psichiatra
 un percorso di perfezionamento interiore. 
 
-È indispensabile essere guidati perchè anche se  è naturale avere a che fare con la propria anima, ovvero, a prendersi cura di se, dei propri sogni e desideri,
+È indispensabile essere guidati perchè anche se  è naturale avere a che fare con la propria anima, ovvero, a prendersi cura di sé, dei propri sogni e desideri,
 a prendersi cura di chi si vuole bene e dei loro sogni e desideri, è meglio far tesoro dell'esperienza di chi ha fatto molta pratica ed ha studiato, piuttosto che
 fare tutto da zero. Nell'informatica, quando si scrive un software non è meglio utilizzare le librerie? O quando si vuole risolvere un problema algoritmico, 
 non è opportuno documentarsi sugli algoritmi già sviluppati in passato? Si evitano errori, si procede più velocemente, si risparmia la fatica di fare tutto da
