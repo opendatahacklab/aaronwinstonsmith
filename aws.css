@@ -1,0 +1,19 @@
+body{
+	background-color : black;
+	color : #ccffcc;
+	font-family: courier, monotype;
+	padding : 2em 30% 2em 30%;
+}
+h1{
+	font-weight : normal;
+	text-align : center;
+}
+header p{
+	text-align : center;
+}
+img{
+	margin : 2em auto 2em auto;
+}
+p.inciso{
+	font-style : italic;
+}
