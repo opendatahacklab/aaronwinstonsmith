@@ -2,68 +2,94 @@
 	<head>
 		<title>Aaron Winston Smith - web e associazioni culturali</title>
 		 <link rel="stylesheet" type="text/css" href="aws.css">
+		<script type="text/javascript">
+			/**
+			 * disable or enable the textfield with the specified id according to the value of the controller checkbox or radio button 
+ 			 * @param controllerId id of the checkbox or radio input field
+			 * @param textFieldId identitier of the textarea which field which should be enabled/disabled.
+			 */
+			function handleChange(controllerId, textAreaId){
+				var controllerEl = document.getElementById(controllerId);
+				var textAreaEl = document.getElementById(textAreaId);	
+				if (controllerEl.checked)
+					textAreaEl.removeAttribute("disabled");
+				else
+					textAreaEl.disabled="true";
+			}
+		</script>
 	</head>
 	<body>
 		<h1>Sondaggio: Web e Associazioni Culturali</h1> 
-		<p>Cari Amici, qui &egrave; Winston dal ciberspazio. Oggi vi trascino nel vortice del commercio, perch&egrave; non di solo pane vive l'uomo ma qualche dolcino ogni tanto scalda il cuore.</p>
-		<p>Il sondaggio che segue riguarda tutti i frequentatori di associazioni culturali e spazi sociali, se vorrete regalarmi un piccolo frammento di informazione compilandolo ve ne sar&ograve; grato.</p>
+		<p>Cari Amici, qui &egrave; Winston dal ciberspazio. Oggi vi trascino nel vortice del commercio, perch&egrave; non di solo pane vive l'uomo ma qualche dolcino ogni tanto scalda il cuore.
+		Se vorrete regalarmi un piccolo frammento di informazione compilandolo ve ne sar&ograve; grato.</p>
 		<p class="credits">
 			Powered by <a target="_blank" href="https://kibibit.net">Kibibit</a>
 		</p>
 
+		<!-- see https://www.w3.org/TR/html52/sec-forms.html#sec-forms -->
 		<form>
-			<label>In che rapporto sei con le associazioni e gli spazi sociali?</label>
-			<p><input type="checkbox" name="tipoutente" value="no" />non li frequento</p>
-			<p><input type="checkbox" name="tipoutente" value="saltuario" />li frequento saltuariamente</p>
-			<p><input type="checkbox" name="tipoutente" value="assiduo" />frequento spazi del genere regolarmente, ma allo stesso modo frequento locali e pub a vocazione commerciale</p>
-			<p><input type="checkbox" name="tipoutente" value="esclusivo" />frequento quasi esclusivamente spazi sociali e associazioni, ma non prendo mai o quasi mai parte all'organizzazione</p>
-			<p><input type="checkbox" name="tipoutente" value="esclusivo" />frequento quasi esclusivamente spazi sociali e associazioni e prendo (spesso o a volte) parte all'organizzazione delle attivit&agrave;</p>
+			<fieldset>
+				<legend>In che rapporto sei con le associazioni e gli spazi sociali?</legend>
+				<div><label><input type="checkbox" name="tipoutente" value="no" />non li frequento</label></div>
+				<div><label><input type="checkbox" name="tipoutente" value="saltuario" />li frequento saltuariamente</label></div>
+				<div><label><input type="checkbox" name="tipoutente" value="assiduo" />frequento spazi del genere regolarmente, ma allo stesso modo frequento locali e pub a vocazione commerciale</label></div>
+				<div><label><input type="checkbox" name="tipoutente" value="esclusivo" />frequento quasi esclusivamente spazi sociali e associazioni, ma non prendo mai o quasi mai parte all'organizzazione</label></div>
+				<div><label><input type="checkbox" name="tipoutente" value="esclusivo" />frequento quasi esclusivamente spazi sociali e associazioni e prendo (spesso o a volte) parte all'organizzazione delle attivit&agrave;</label></div>
+			</fieldset>
 
-			<label>In che modo vieni informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</label>
-			<p><input type="radio" name="modo" value="sito"/>attraverso il sito web dello spazio</p>
-			<p><input type="radio" name="modo" value="facebook">attraverso la pagina facebook dello spazio sociale</p>
-			<p><input type="radio" name="modo" value="web">attraverso siti generici di eventi</p>
-			<p><input type="radio" name="modo" value="messenger">con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</p>
-			<p><input type="radio" name="modo" value="mail">via e-mail</p>
-			<p><input type="radio" name="modo" value="sms">con degli SMS</p>
-			<p><input type="radio" name="modo" value="brochure">con una brochure cartacea</p>
-			<p><input type="radio" name="modo" value="calendario">attraverso un calendario esposto in sede</p>
-			<p><input type="radio" name="modo" value="passaparola">con il passaparola</p>
-			<p><input type="radio" name="modo" value="altro">Altro
-				<input type="textarea" name="modoaltro" value="(specificare)" />
-			</p>
+			<fieldset onclick="handleChange('modoaltrocontroller','modoaltrotext')">
+				<legend>In che modo vieni informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</legend>
+				<div><label><input type="radio" name="modo" value="sito"/>attraverso il sito web dello spazio</label></div>
+				<div><label><input type="radio" name="modo" value="facebook" />attraverso la pagina facebook dello spazio sociale</label></div>
+				<div><label><input type="radio" name="modo" value="web" />attraverso siti generici di eventi</label></div>
+				<div><label><input type="radio" name="modo" value="messenger" />con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</label></div>
+				<div><label><input type="radio" name="modo" value="mail" />via e-mail</label></div>
+				<div><label><input type="radio" name="modo" value="sms" />con degli SMS</label></div>
+				<div><label><input type="radio" name="modo" value="brochure" />con una brochure cartacea</label></div>
+				<div><label><input type="radio" name="modo" value="calendario" />attraverso un calendario esposto in sede</label></div>
+				<div><label><input type="radio" name="modo" value="passaparola" />con il passaparola</label></div>
+				<div><label><input type="radio" name="modo" id="modoaltrocontroller" value="altro" />Altro</label>
+					<input type="textarea" name="modoaltrotext" id="modoaltrotext" value="(specificare)" disabled />
+				</div>
+			</fieldset>
 
-			<label>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</label>
-			<p><input type="checkbox" name="mododesiderata" value="sito"/>attraverso il sito web dello spazio</p>
-			<p><input type="checkbox" name="mododesiderata" value="facebook">attraverso la pagina facebook dello spazio sociale</p>
-			<p><input type="checkbox" name="mododesiderata" value="web">attraverso siti generici di eventi</p>
-			<p><input type="checkbox" name="mododesiderata" value="messenger">con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</p>
-			<p><input type="checkbox" name="mododesiderata" value="mail">via e-mail</p>
-			<p><input type="checkbox" name="mododesiderata" value="sms">con degli SMS</p>
-			<p><input type="checkbox" name="mododesiderata" value="brochure">con una brochure cartacea</p>
-			<p><input type="checkbox" name="mododesiderata" value="calendario">attraverso un calendario esposto in sede</p>
-			<p><input type="radio" name="modo" value="altro">Altro
-				<input type="textarea" name="modoaltro" value="(specificare)" />
-			</p>
+			<fieldset>
+				<legend>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</legend>
+				<div><label><input type="checkbox" name="mododesiderata" value="sito"/>attraverso il sito web dello spazio</label></div>
+				<div><label><input type="checkbox" name="mododesiderata" value="facebook" />attraverso la pagina facebook dello spazio sociale</label></div>
+				<div><label><input type="checkbox" name="mododesiderata" value="web" />attraverso siti generici di eventi</label></div>
+				<div><label><input type="checkbox" name="mododesiderata" value="messenger" />con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</label></div>
+				<div><label><input type="checkbox" name="mododesiderata" value="mail" />via e-mail</label></div>
+				<div><label><input type="checkbox" name="mododesiderata" value="sms" />con degli SMS</label></div>
+				<div><label><input type="checkbox" name="mododesiderata" value="brochure" />con una brochure cartacea</label></div>
+				<div><label><input type="checkbox" name="mododesiderata" value="calendario" />attraverso un calendario esposto in sede</label></div>
+				<div><label><input type="checkbox" name="mododesiderata" id="mododesiderataaltrocontroller" value="altro" onclick="handleChange('mododesiderataaltrocontroller','mododesiderataaltrotext')" />Altro</label>
+					<input type="textarea" name="modoaltro" id="mododesiderataaltrotext" value="(specificare)" disabled />
+				</div>
+			</fieldset>
 
-			<label>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave?<label>
-			<p><input type="radio" name="preavviso" value="giornaliero"/>anche il giorno stesso va bene</p>
-			<p><input type="radio" name="preavviso" value="giornaliero"/>almeno una settimana prima</p>
-			<p><input type="radio" name="preavviso" value="giornaliero"/>almeno un mese prima</p>
+			<fieldset>
+				<legend>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave?</legend>
+				<div><label><input type="radio" name="preavviso" value="giornaliero"/>anche il giorno stesso va bene</label></div>
+				<div><label><input type="radio" name="preavviso" value="giornaliero"/>almeno una settimana prima</label></div>
+				<div><label><input type="radio" name="preavviso" value="giornaliero"/>almeno un mese prima</label></div>
+			</fieldset>
 
-			<label>Infine una domanda un po tecnica. A tuo avviso, quanto &egrave; importante che una organizzazione, per quanto piccola, abbia un 
-			proprio sito con un proprio nome di dominio (ad esempio www.miapiccolaassociazione.it)?</label>
-			<p><input type="radio" name="sitoweb" value="molto" />&egrave; fondamentale</p>
-			<p><input type="radio" name="sitoweb" value="abbastanza" />&egrave; opportuno ma pu&ograve; andare bene anche una pagina su una piattaforma esterna (ad esempio una pagina facebook)</p>
-			<p><input type="radio" name="sitoweb" value="no" />non &egrave; necessario, &egrave; sufficiente; una pagina su una piattaforma esterna (ad esempio una pagina facebook)</p>
-			<p><input type="radio" name="sitoweb" value="nointernet" />non &egrave; necessario essere presenti su internet</p>
+			<fieldset>
+				<legend>Quanto &egrave; importante che una organizzazione abbia un 
+				proprio sito con un proprio nome di dominio (ad esempio www.miapiccolaassociazione.it)?</legend>
+				<div><label><input type="radio" name="sitoweb" value="molto" />&egrave; fondamentale</label></div>
+				<div><label><input type="radio" name="sitoweb" value="abbastanza" />&egrave; opportuno ma pu&ograve; andare bene anche una pagina su una piattaforma esterna (ad esempio una pagina facebook)</label></div>
+				<div><label><input type="radio" name="sitoweb" value="no" />non &egrave; necessario, &egrave; sufficiente; una pagina su una piattaforma esterna (ad esempio una pagina facebook)</label></div>
+				<div><label><input type="radio" name="sitoweb" value="nointernet" />non &egrave; necessario essere presenti su internet</label></div>
+			</fieldset>
 
-			<label>Se vuoi lascia pure un tuo pensiero.</label>
-			<p><input type="textarea" name="libero"/></p>
+			<p>Se vuoi lascia pure un tuo pensiero.</p>
+			<div><input type="textarea" name="libero"/></div>
 
 			<p>Prima di inviare il questionario &egrave; importante che tu comprenda che la compilazione del questionario avviene in forma totalmente anonima, 
 			ma i risultati del sondaggio saranno resi disponibili pubblicamente e riutilizzabili per qualsiasi fine.</p>
-			<input type="submit" value="INVIA" />
+			<div><input type="submit" value="INVIA" /></div>
 		</form>
 	</body>
 </html>
