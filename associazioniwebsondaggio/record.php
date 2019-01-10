@@ -1,6 +1,9 @@
+<!DOCTYPE html>
+
 <html lang="it">
 	<head>
 		<title>Aaron Winston Smith - web e associazioni culturali - grazie</title>
+		 <meta charset="UTF-8"> 
 		 <link rel="stylesheet" type="text/css" href="../aws.css">
 	<body>
 		<header>
