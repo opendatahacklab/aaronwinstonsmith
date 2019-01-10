@@ -28,14 +28,14 @@
 		</p>
 
 		<!-- see https://www.w3.org/TR/html52/sec-forms.html#sec-forms -->
-		<form>
+		<form action="record.php" method="post>
 			<fieldset>
 				<legend>In che rapporto sei con le associazioni e gli spazi sociali?</legend>
 				<div><label><input type="checkbox" name="tipoutente" value="no" />non li frequento</label></div>
 				<div><label><input type="checkbox" name="tipoutente" value="saltuario" />li frequento saltuariamente</label></div>
 				<div><label><input type="checkbox" name="tipoutente" value="assiduo" />frequento spazi del genere regolarmente, ma allo stesso modo frequento locali e pub a vocazione commerciale</label></div>
 				<div><label><input type="checkbox" name="tipoutente" value="esclusivo" />frequento quasi esclusivamente spazi sociali e associazioni, ma non prendo mai o quasi mai parte all'organizzazione</label></div>
-				<div><label><input type="checkbox" name="tipoutente" value="esclusivo" />frequento quasi esclusivamente spazi sociali e associazioni e prendo (spesso o a volte) parte all'organizzazione delle attivit&agrave;</label></div>
+				<div><label><input type="checkbox" name="tipoutente" value="organizzatore" />frequento quasi esclusivamente spazi sociali e associazioni e prendo (spesso o a volte) parte all'organizzazione delle attivit&agrave;</label></div>
 			</fieldset>
 
 			<fieldset onclick="handleChange('modoaltrocontroller','modoaltrotext')">
@@ -70,8 +70,8 @@
 			<fieldset>
 				<legend>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave?</legend>
 				<div><label><input type="radio" name="preavviso" value="giornaliero"/>anche il giorno stesso va bene</label></div>
-				<div><label><input type="radio" name="preavviso" value="giornaliero"/>almeno una settimana prima</label></div>
-				<div><label><input type="radio" name="preavviso" value="giornaliero"/>almeno un mese prima</label></div>
+				<div><label><input type="radio" name="preavviso" value="settimanale"/>almeno una settimana prima</label></div>
+				<div><label><input type="radio" name="preavviso" value="mensile"/>almeno un mese prima</label></div>
 			</fieldset>
 
 			<fieldset>
