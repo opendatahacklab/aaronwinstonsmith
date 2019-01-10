@@ -9,9 +9,9 @@
 		</header>
 <?php
 	require("dbConfig.php");
-	$db = new mysqli($database,$username, $password, "agendalibera");
+	$db = new mysqli("localhost",$username, $password,$database);
 	$db->query("create table if not exists web_associazioni_sondaggio (".
-		"created timestamp,".
+		"created timestamp default CURRENT_TIMESTAMP,".
 		"tipoutente varchar(20),".
 		"modo varchar(20),".
 		"modoaltro text,".
@@ -20,6 +20,11 @@
 		"preavviso varchar(20),".
 		"sitoweb varchar(20),".
 		"libero text);");
+	$insert=$db->prepare("insert into web_associazioni_sondaggio (tipoutente, modo, modoaltro, mododesiderata, mododesiderataaltro, preavviso, sitoweb, libero) ".
+		" values(?,?,?,?,?,?,?,?)") or die(mysqli_error($db));
+	$insert->bind_param('ssssssss', $_POST['tipoutente'], $_POST['modo'], $_POST['modoaltro'], $_POST['mododesiderata'], $_POST['mododesiderataaltro'], 
+		$_POST['preavviso'], $_POST['sitoweb'], $_POST['libero']);
+	$insert->execute() or die(mysqli_error($db));
 	$db->close();
 ?>
 		<p>Ovviamente qualcosa bolle in pentola. Se vuoi scrivimi pure alla mail <a href="mailto:aaronwinstonsmith@autistici.org">aaronwinstonsmith@autistici.org</a>
