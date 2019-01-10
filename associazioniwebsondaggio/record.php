@@ -9,7 +9,7 @@
 		</header>
 <?php
 	require("dbConfig.php");
-	$db = new mysqli("localhost",$username, $password, "agendalibera");
+	$db = new mysqli($database,$username, $password, "agendalibera");
 	$db->query("create table if not exists web_associazioni_sondaggio (".
 		"created timestamp,".
 		"tipoutente varchar(20),".
