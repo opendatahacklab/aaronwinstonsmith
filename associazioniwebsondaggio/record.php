@@ -8,7 +8,8 @@
 		<p><img src="../turingbig.png" alt="Alan Turing Aged 16" style="width:10em" /></p>
 		</header>
 <?php
-	$db = new mysqli("localhost", "test", "test", "agendalibera");
+	require("dbConfig.php");
+	$db = new mysqli("localhost",$username, $password, "agendalibera");
 	$db->query("create table if not exists web_associazioni_sondaggio (".
 		"created timestamp,".
 		"tipoutente varchar(20),".
