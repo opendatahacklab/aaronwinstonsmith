@@ -12,7 +12,7 @@
 		</header>
 <?php
 	require("dbConfig.php");
-	$db = new mysqli("localhost",$username, $password,$database);
+	$db = new mysqli("127.0.0.1",$username, $password,$database);
 	$db->query("create table if not exists web_associazioni_sondaggio (".
 		"created timestamp default CURRENT_TIMESTAMP,".
 		"tipoutente varchar(20),".
@@ -27,8 +27,10 @@
 		" values(?,?,?,?,?,?,?,?)") or die(mysqli_error($db));
 	$insert->bind_param('ssssssss', $_POST['tipoutente'], $_POST['modo'], $_POST['modoaltro'], $_POST['mododesiderata'], $_POST['mododesiderataaltro'], 
 		$_POST['preavviso'], $_POST['sitoweb'], $_POST['libero']);
-	$insert->execute() or die(mysqli_error($db));
+	$result=$insert->execute() or die(mysqli_error($db));
 	$db->close();
+	if ($result)
+		echo "<p>Il tuo sondaggio &egrave; stato registrato.</p>\n";
 ?>
 		<p>Ovviamente qualcosa bolle in pentola. Se vuoi scrivimi pure alla mail <a href="mailto:aaronwinstonsmith@autistici.org">aaronwinstonsmith@autistici.org</a>
 		oppure cerca <a href="https://www.facebook.com/aaronwinston.smith">Aaron Winston Smith</a> su Facebook.</p> 

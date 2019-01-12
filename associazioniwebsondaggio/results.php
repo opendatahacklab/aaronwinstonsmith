@@ -3,7 +3,8 @@
 	 * Download live results.
 	 */
 	require("dbConfig.php");
-	$db = new mysqli("localhost",$username, $password, $database);
+	$db = new mysqli("127.0.0.1",$username, $password, $database);
+	echo("ERRORE ".mysqli_error($db));
 	$result=$db->query("select created, ".
 		"tipoutente, ".
 		"modo, ".
@@ -13,18 +14,18 @@
 		"preavviso, ".
 		"sitoweb, ".
 		"libero ".
-		"from web_associazioni_sondaggio") or die(mysqli_error($db));
+		"from web_associazioni_sondaggio");
+	if ($result===FALSE) 
+		echo("ERRORE ".mysqli_error($db));
 
+	echo 0;
 	printf("created\ttipoutente\tmodo,\tmodoaltro\tmododesiderata\tmododesiderataaltro\tpreavviso\tsitoweb\tlibero\n");
+	echo 1;
 	while ($row = $result->fetch_assoc()) {
-		printf ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n", $row['created'], $row['tipoutente'], $row['modo'], $row['modoaltro'],$row['mododesiderata'],
-			$row['mododesiderataaltro'], $row['preavviso'], $row['sitoweb'], $row['libero']);
+		echo 2;
+		//printf ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n", $row['created'], $row['tipoutente'], $row['modo'], $row['modoaltro'],$row['mododesiderata'],
+		//	$row['mododesiderataaltro'], $row['preavviso'], $row['sitoweb'], $row['libero']);
 	}
-
-//	for($i = 0; $i < $result; $i++) {
- //   		$field_info = mysql_fetch_field($result, $i);
-  //  		echo "$field_info->name;";
-	// }
-
+	echo 3;
 	$db->close();
 ?>
