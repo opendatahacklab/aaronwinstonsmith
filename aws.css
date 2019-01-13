@@ -2,7 +2,8 @@ body{
 	background-color : black;
 	color : #ccffcc;
 	font-family: "Courier New", courier, monotype;
-	padding : 2em 30% 2em 30%;
+	padding : 2em 10% 2em 10%;
+	font-size: 2vw;
 }
 h1{
 	font-weight : normal;
