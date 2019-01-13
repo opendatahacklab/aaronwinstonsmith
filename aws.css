@@ -75,3 +75,7 @@ textarea{
 input[type="textarea"]:disabled{
 	border-color: #003300;
 }
+
+input{
+	color: inherit;
+}
