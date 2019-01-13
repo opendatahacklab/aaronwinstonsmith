@@ -11,25 +11,15 @@
 		<p><img src="../turingbig.png" alt="Alan Turing Aged 16" style="width:10em" /></p>
 		</header>
 <?php
-	/**
-	 * return a comma-separated list of values of checked values of a checkbox.
-	 */
-	function splitCheckbox($fieldName){
-		if (!(isset($_POST[$fieldName])))
-  			return '';
-		$r='';
-		$l=count($_POST[$fieldName]);
-		for($i=0; $i<$l-1; $i++)
-			$r.=$_POST($fieldName)[$i].',';
-		if ($l>0)
-			$r.=$_POST($fieldName)[$i];
-		return $r;
-	}
+	$new=!(file_exists("risultati.tsv"));
 	$f=fopen("risultati.tsv","a");
 	if (!$f){
 		echo "Impossibile aprire il file";
 		die();
 	}
+	if ($new)
+		fwrite($f, "created\ttipoutente\tmodo\tmodoaltro\tmododesideratasito\tmododesideratafacebook\tmododesiderataweb\tmododesideratamessenger\tmododesideratamail\tmododesideratasms\tmododesideratabrochure\tmododesideratacalendario\tmododesiderataaltrotext\tpreavviso\tsitoweb\tlibero\n");
+
 	fprintf($f, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",date('Y-m-d H:s'),$_POST['tipoutente'], $_POST['modo'], $_POST['modoaltro'], 
 		$_POST['mododesideratasito'], $_POST['mododesideratafacebook'], $_POST['mododesiderataweb'], $_POST['mododesideratamessenger'], $_POST['mododesideratamail'], 
 		$_POST['mododesideratasms'], $_POST['mododesideratabrochure'], $_POST['mododesideratacalendario'], $_POST['mododesiderataaltrotext'], 
