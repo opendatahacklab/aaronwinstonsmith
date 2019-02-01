@@ -13,6 +13,9 @@
 	</head>
 	<body>
 		<h1>Risultati del Sondaggio Web e Associazioni Culturali </h1> 
+		<p class="credits">
+			Powered by <a target="_blank" href="https://kibibit.net">Kibibit</a>
+		</p>
 		<p>In questa pagina vengono riportati i risultati del sondaggio <a href="index.html">Web e Associazioni Culturali</a>. Nel seguito troverete
 		elencati i singoli questionari sottomessi, aggiornati in tempo reale. &Egrave anche disponibile un <a href="risultati.tsv" type="text/tab-separated-values">file tsv</a> con i risultati,
 		 anch'esso aggiornato in tempo reale, ed un file <a href="README.txt">README</a> che spiega come interpretare il file tsv. Ricordiamo che i risultati del sondaggio sono rilasciati
