@@ -5,11 +5,20 @@
 		<title>Aaron Winston Smith - web e associazioni culturali - risultati </title>
 		 <meta charset="UTF-8" /> 
 		 <link rel="stylesheet" type="text/css" href="../aws.css" />
+		<style>
+			*.checked{
+				border : dotted 1px ;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>Risultati del Sondaggio Web e Associazioni Culturali </h1> 
-		<p>Cari Amici, qui &egrave; Winston dal ciberspazio. Oggi vi trascino nel vortice del commercio, perch&egrave; non di solo pane vive l'uomo ma qualche dolcino ogni tanto scalda il cuore.
-		Se vorrete regalarmi un piccolo frammento di informazione compilandolo ve ne sar&ograve; grato.</p>
+		<p>In questa pagina vengono riportati i risultati del sondaggio <a href="index.html">Web e Associazioni Culturali</a>. Nel seguito troverete
+		elencati i singoli questionari sottomessi, aggiornati in tempo reale. &Egrave anche disponibile un <a href="risultati.tsv" type="text/tab-separated-values">file tsv</a> con i risultati,
+		 anch'esso aggiornato in tempo reale, ed un file <a href="README.txt">README</a> che spiega come interpretare il file tsv. Ricordiamo che i risultati del sondaggio sono rilasciati
+		con licenza <a href="https://creativecommons.org/licenses/by/3.0/it/deed.it">Creative Commons Attribuzione 3.0 Italia (CC BY 3.0 IT)</a>.  Si consiglia di usare la URL
+		di questa pagina per indicare la fonte, nel caso in cui decidiate di riutilizzare questi dati.
+		</p>
 
 <?php
 	/**
@@ -22,67 +31,63 @@
 ?>
 		<h2>Questionario <?=$n;?> del <?=$result[0]?></h2> 
 		<form action="record-to-file.php" method="post">
-			<fieldset>
-				<legend>In che rapporto sei con le associazioni e gli spazi sociali?</legend>
-				<div><label><input type="radio" name="tipoutente<?=$n;?>" value="no" <?php if ($result[1]==='no') echo 'checked';?> disabled />non li frequento</label></div>
-				<div><label><input type="radio" name="tipoutente<?=$n;?>" value="saltuario" <?php if ($result[1]==='saltuario') echo 'checked';?> disabled />li frequento saltuariamente</label></div>
-				<div><label><input type="radio" name="tipoutente<?=$n;?>" value="assiduo" <?php if ($result[1]==='assiduo') echo 'checked';?> disabled />frequento spazi del genere regolarmente, ma allo stesso modo frequento locali e pub a vocazione commerciale</label></div>
-				<div><label><input type="radio" name="tipoutente<?=$n;?>" value="esclusivo" <?php if ($result[1]==='esclusivo') echo 'checked';?> disabled />frequento quasi esclusivamente spazi sociali e associazioni, ma non prendo mai o quasi mai parte all'organizzazione</label></div>
-				<div><label><input type="radio" name="tipoutente<?=$n;?>" value="organizzatore" <?php if ($result[1]==='organizzatore') echo 'checked';?> disabled />frequento quasi esclusivamente spazi sociali e associazioni e prendo (spesso o a volte) parte all'organizzazione delle attivit&agrave;</label></div>
-			</fieldset>
+			<h3>In che rapporto sei con le associazioni e gli spazi sociali?</h3>
+			<ul>
+				<li <?php if ($result[1]==='no') echo 'class="checked" ';?>>non li frequento</li>
+				<li <?php if ($result[1]==='saltuario') echo 'class="checked" ';?> >li frequento saltuariamente</li>
+				<li <?php if ($result[1]==='assiduo') echo 'class="checked"';?> >frequento spazi del genere regolarmente, ma allo stesso modo frequento locali e pub a vocazione commerciale</li>
+				<li <?php if ($result[1]==='esclusivo') echo 'class="checked"';?> >frequento quasi esclusivamente spazi sociali e associazioni, ma non prendo mai o quasi mai parte all'organizzazione</li>
+				<li <?php if ($result[1]==='organizzatore') echo 'class="checked"';?> >frequento quasi esclusivamente spazi sociali e associazioni e prendo (spesso o a volte) parte all'organizzazione delle attivit&agrave;</li>
+			</ul>
 
-			<fieldset onclick="handleChange('modoaltrocontroller','modoaltrotext')">
-				<legend>In che modo vieni informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</legend>
-				<div><label><input type="radio" name="modo<?=$n;?>" value="sito" <?php if ($result[2]==='sito') echo 'checked';?> disabled />attraverso il sito web dello spazio</label></div>
-				<div><label><input type="radio" name="modo<?=$n;?>" value="facebook" <?php if ($result[2]==='facebook') echo 'checked';?> disabled />attraverso la pagina facebook dello spazio sociale</label></div>
-				<div><label><input type="radio" name="modo<?=$n;?>" value="web" <?php if ($result[2]==='web') echo 'checked';?> disabled />attraverso siti generici di eventi</label></div>
-				<div><label><input type="radio" name="modo<?=$n;?>" value="messenger" <?php if ($result[2]==='messenger') echo 'checked';?> disabled />con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</label></div>
-				<div><label><input type="radio" name="modo<?=$n;?>" value="mail" <?php if ($result[2]==='mail') echo 'checked';?> disabled />via e-mail</label></div>
-				<div><label><input type="radio" name="modo<?=$n;?>" value="sms" <?php if ($result[2]==='sms') echo 'checked';?> disabled />con degli SMS</label></div>
-				<div><label><input type="radio" name="modo<?=$n;?>" value="brochure" <?php if ($result[2]==='brochure') echo 'checked';?> disabled />con una brochure cartacea</label></div>
-				<div><label><input type="radio" name="modo<?=$n;?>" value="calendario" <?php if ($result[2]==='calendario') echo 'checked';?> disabled />attraverso un calendario esposto in sede</label></div>
-				<div><label><input type="radio" name="modo<?=$n;?>" value="passaparola" <?php if ($result[2]==='passaparola') echo 'checked';?> disabled />con il passaparola</label></div>
-				<div><label><input type="radio" name="modo<?=$n;?>" id="modoaltrocontroller" value="altro" <?php if ($result[2]==='altro') echo 'checked';?> disabled />Altro</label></div>
-				<div class="centeredinputcontainer"><textarea name="modoaltro<?=$n;?>" id="modoaltrotext"  disabled rows="3" cols="15"><?=$result[3];?></textarea></div>
-			</fieldset>
+			<h3>In che modo vieni informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</h3>
+			<ul>
+				<li <?php if ($result[2]==='sito') echo 'class="checked"';?> >attraverso il sito web dello spazio</li>
+				<li <?php if ($result[2]==='facebook') echo 'class="checked"';?> >attraverso la pagina facebook dello spazio sociale</li>
+				<li <?php if ($result[2]==='web') echo 'class="checked"';?> >attraverso siti generici di eventi</li>
+				<li <?php if ($result[2]==='messenger') echo 'class="checked"';?> >con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</li>
+				<li <?php if ($result[2]==='mail') echo 'class="checked"';?> >via e-mail</li>
+				<li <?php if ($result[2]==='sms') echo 'class="checked"';?> >con degli SMS</li>
+				<li <?php if ($result[2]==='brochure') echo 'class="checked"';?> >con una brochure cartacea</li>
+				<li <?php if ($result[2]==='calendario') echo 'class="checked"';?> >attraverso un calendario esposto in sede</li>
+				<li <?php if ($result[2]==='passaparola') echo 'class="checked"';?> >con il passaparola</li>
+				<li <?php if ($result[2]==='altro') echo 'class="checked"';?> >Altro: <?=$result[3];?></li>
+			</ul>
+			<h3>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</h3>
+			<ul>
+				<li <?php if ($result[4]==='y') echo 'class="checked"';?> >attraverso il sito web dello spazio</li>
+				<li <?php if ($result[5]==='y') echo 'class="checked"';?> >attraverso la pagina facebook dello spazio sociale</li>
+				<li <?php if ($result[6]==='y') echo 'class="checked"';?> >attraverso siti generici di eventi</li>
+				<li <?php if ($result[7]==='y') echo 'class="checked"';?> >con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</li>
+				<li <?php if ($result[8]==='y') echo 'class="checked"';?> >via e-mail</li>
+				<li <?php if ($result[9]==='y') echo 'class="checked"';?> >con degli SMS</li>
+				<li <?php if ($result[10]==='y') echo 'class="checked"';?> >con una brochure cartacea</li>
+				<li <?php if ($result[11]==='y') echo 'class="checked"';?> >attraverso un calendario esposto in sede</li>
+				<li <?php if (!(empty($result[12]))) echo 'class="checked"';?> >Altro: <?=$result[12];?></li>
+			</ul>
 
-			<fieldset>
-				<legend>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</legend>
-				<div><label><input type="checkbox" name="mododesideratasito<?=$n;?>" <?php if ($result[4]==='y') echo 'checked';?> disabled />attraverso il sito web dello spazio</label></div>
-				<div><label><input type="checkbox" name="mododesideratafacebook<?=$n;?>" <?php if ($result[5]==='y') echo 'checked';?> disabled />attraverso la pagina facebook dello spazio sociale</label></div>
-				<div><label><input type="checkbox" name="mododesiderataweb<?=$n;?>" <?php if ($result[6]==='y') echo 'checked';?> disabled />attraverso siti generici di eventi</label></div>
-				<div><label><input type="checkbox" name="mododesideratamessenger<?=$n;?>" <?php if ($result[7]==='y') echo 'checked';?> disabled />con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</label></div>
-				<div><label><input type="checkbox" name="mododesideratamail<?=$n;?>" <?php if ($result[8]==='y') echo 'checked';?> disabled />via e-mail</label></div>
-				<div><label><input type="checkbox" name="mododesideratasms<?=$n;?>" <?php if ($result[9]==='y') echo 'checked';?> disabled />con degli SMS</label></div>
-				<div><label><input type="checkbox" name="mododesideratabrochure<?=$n;?>" <?php if ($result[10]==='y') echo 'checked';?> disabled />con una brochure cartacea</label></div>
-				<div><label><input type="checkbox" name="mododesideratacalendario<?=$n;?>" <?php if ($result[11]==='y') echo 'checked';?> disabled />attraverso un calendario esposto in sede</label></div>
-				<div><label><input type="checkbox" name="mododesiderataaltro<?=$n;?>" id="mododesiderataaltrocontroller" disabled onclick="handleChange('mododesiderataaltrocontroller','mododesiderataaltrotext')" />Altro</label></div>
-				<div class="centeredinputcontainer"><textarea name="mododesiderataaltrotext<?=$n;?>" id="mododesiderataaltrotext"  disabled rows="3" cols="15"><?=$result[12];?></textarea></div>				
-			</fieldset>
+			<h3>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave;?</h3>
+			<ul>
+				<li <?php if ($result[13]==='giornaliero') echo 'class="checked"';?> >anche il giorno stesso va bene</li>
+				<li <?php if ($result[13]==='settimanale') echo 'class="checked"';?> >almeno una settimana prima</li>
+				<li <?php if ($result[13]==='mensile') echo 'class="checked"';?> >almeno un mese prima</li>
+			</ul>
 
-			<fieldset>
-				<legend>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave;?</legend>
-				<div><label><input type="radio" name="preavviso" value="giornaliero"/>anche il giorno stesso va bene</label></div>
-				<div><label><input type="radio" name="preavviso" value="settimanale"/>almeno una settimana prima</label></div>
-				<div><label><input type="radio" name="preavviso" value="mensile"/>almeno un mese prima</label></div>
-			</fieldset>
+			<h3>Quanto &egrave; importante che una organizzazione abbia un 
+				proprio sito con un proprio nome di dominio (ad esempio www.miapiccolaassociazione.it)?</h3>
+			<ul>
+				<li <?php if ($result[14]==='molto') echo 'class="checked"';?> >&egrave; fondamentale</li>
+				<li <?php if ($result[14]==='abbastanza') echo 'class="checked"';?> >&egrave; opportuno ma pu&ograve; andare bene anche una pagina su una piattaforma esterna (ad esempio una pagina facebook)</li>
+				<li <?php if ($result[14]==='no') echo 'class="checked"';?> >non &egrave; necessario, &egrave; sufficiente una pagina su una piattaforma esterna (ad esempio una pagina facebook)</li>
+				<li <?php if ($result[14]==='nointernet') echo 'class="checked"';?> >non &egrave; necessario essere presenti su internet</li>
+			</ul>
 
-			<fieldset>
-				<legend>Quanto &egrave; importante che una organizzazione abbia un 
-				proprio sito con un proprio nome di dominio (ad esempio www.miapiccolaassociazione.it)?</legend>
-				<div><label><input type="radio" name="sitoweb" value="molto" />&egrave; fondamentale</label></div>
-				<div><label><input type="radio" name="sitoweb" value="abbastanza" />&egrave; opportuno ma pu&ograve; andare bene anche una pagina su una piattaforma esterna (ad esempio una pagina facebook)</label></div>
-				<div><label><input type="radio" name="sitoweb" value="no" />non &egrave; necessario, &egrave; sufficiente; una pagina su una piattaforma esterna (ad esempio una pagina facebook)</label></div>
-				<div><label><input type="radio" name="sitoweb" value="nointernet" />non &egrave; necessario essere presenti su internet</label></div>
-			</fieldset>
-
-			<p>Se vuoi lascia pure un tuo pensiero.</p>
-			<div class="centeredinputcontainer"><textarea name="libero" rows="3" cols="15"></textarea></div>
+			<p>Se vuoi lascia pure un tuo pensiero: <?=$result[15];?></p>
 <?php
 	}
 
 	$handle = fopen('risultati.tsv', 'r') or die('Unable to open file');
-	$i=0;
+	$i=1;
 	//skip header
 	fgetcsv($handle, 4096, "\t");
 	//parse lines
@@ -92,4 +97,4 @@
         	$i++;
     	}
 	fclose($handle);
-?>
+    ?>
