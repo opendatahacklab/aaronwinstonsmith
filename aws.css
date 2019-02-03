@@ -100,3 +100,19 @@ input{
 input:checked{
 	border-bottom: solid #80ff80 0.2em;
 }
+
+table{
+border-collapse: collapse;
+}
+
+table, th, td {
+  border: 0.2em solid #003300;
+}
+
+th, td{
+	padding : 0.5em 0.5em 0.5em 0.5em;
+}
+caption{
+	font-weight : bold;
+	font-size: 1.2em;
+}
