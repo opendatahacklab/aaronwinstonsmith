@@ -26,6 +26,18 @@
 <?php
 
 	/**
+	 * Process a mododesiderata field, return the string represnting that the option was checked.
+         */
+	function processDesiderata($key, $value, $userType, & $counts){
+		if ($value==='y'){
+			$counts['mododesiderata'][$key][$userType]++;
+			$counts['mododesiderata'][$key]['tot']++;
+			return 'class="checked"';
+		} else
+			return '';
+	}  
+
+	/**
 	 * print the result of a single survey submission
 	 *
 	 * @param $n row number
@@ -62,15 +74,15 @@
 		</ul>
 		<h3>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</h3>
 		<ul>
-			<li <?php if ($result[4]==='y') echo 'class="checked"';?> >attraverso il sito web dello spazio</li>
-			<li <?php if ($result[5]==='y') echo 'class="checked"';?> >attraverso la pagina facebook dello spazio sociale</li>
-			<li <?php if ($result[6]==='y') echo 'class="checked"';?> >attraverso siti generici di eventi</li>
-			<li <?php if ($result[7]==='y') echo 'class="checked"';?> >con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</li>
-			<li <?php if ($result[8]==='y') echo 'class="checked"';?> >via e-mail</li>
-			<li <?php if ($result[9]==='y') echo 'class="checked"';?> >con degli SMS</li>
-			<li <?php if ($result[10]==='y') echo 'class="checked"';?> >con una brochure cartacea</li>
-			<li <?php if ($result[11]==='y') echo 'class="checked"';?> >attraverso un calendario esposto in sede</li>
-			<li <?php if (!(empty($result[12]))) echo 'class="checked"';?> >Altro: <?=$result[12];?></li>
+			<li <?=processDesiderata('sito', $result[4], $result[1], $counts);?> >attraverso il sito web dello spazio</li>
+			<li <?=processDesiderata('facebook', $result[5], $result[1], $counts);?> >attraverso la pagina facebook dello spazio sociale</li>
+			<li <?=processDesiderata('web', $result[6], $result[1], $counts);?> >attraverso siti generici di eventi</li>
+			<li <?=processDesiderata('messenger', $result[7], $result[1], $counts);?> >con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</li>
+			<li <?=processDesiderata('mail', $result[8], $result[1], $counts);?> >via e-mail</li>
+			<li <?=processDesiderata('sms', $result[9], $result[1], $counts);?> >con degli SMS</li>
+			<li <?=processDesiderata('brochure', $result[10], $result[1], $counts);?> >con una brochure cartacea</li>
+			<li <?=processDesiderata('calendario', $result[11], $result[1], $counts);?> >attraverso un calendario esposto in sede</li>
+			<li <?php if (!(empty($result[12]))){ 	$counts['mododesiderata']['altro'][$userType]++; $counts['mododesiderata']['altro']['tot']++; echo 'class="checked"';} ?> >Altro: <?=$result[12];?></li>
 		</ul>
 
 		<h3>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave;?</h3>
@@ -101,84 +113,88 @@ $counts['tipoutente']['esclusivo']=0;
 $counts['tipoutente']['organizzatore']=0;
 $counts['tipoutente']['']=0;
 
-$counts['modo']['sito']['no']=0;
-$counts['modo']['sito']['saltuario']=0;
-$counts['modo']['sito']['assiduo']=0;
-$counts['modo']['sito']['esclusivo']=0;
-$counts['modo']['sito']['organizzatore']=0;
-$counts['modo']['sito']['']=0;
-$counts['modo']['sito']['tot']=0;
-$counts['modo']['facebook']['no']=0;
-$counts['modo']['facebook']['saltuario']=0;
-$counts['modo']['facebook']['assiduo']=0;
-$counts['modo']['facebook']['esclusivo']=0;
-$counts['modo']['facebook']['organizzatore']=0;
-$counts['modo']['facebook']['']=0;
-$counts['modo']['facebook']['tot']=0;
-$counts['modo']['web']['no']=0;
-$counts['modo']['web']['saltuario']=0;
-$counts['modo']['web']['assiduo']=0;
-$counts['modo']['web']['esclusivo']=0;
-$counts['modo']['web']['organizzatore']=0;
-$counts['modo']['web']['']=0;
-$counts['modo']['web']['tot']=0;
-$counts['modo']['messenger']['no']=0;
-$counts['modo']['messenger']['saltuario']=0;
-$counts['modo']['messenger']['assiduo']=0;
-$counts['modo']['messenger']['esclusivo']=0;
-$counts['modo']['messenger']['organizzatore']=0;
-$counts['modo']['messenger']['']=0;
-$counts['modo']['messenger']['tot']=0;
-$counts['modo']['mail']['no']=0;
-$counts['modo']['mail']['saltuario']=0;
-$counts['modo']['mail']['assiduo']=0;
-$counts['modo']['mail']['esclusivo']=0;
-$counts['modo']['mail']['organizzatore']=0;
-$counts['modo']['mail']['']=0;
-$counts['modo']['mail']['tot']=0;
-$counts['modo']['sms']['no']=0;
-$counts['modo']['sms']['saltuario']=0;
-$counts['modo']['sms']['assiduo']=0;
-$counts['modo']['sms']['esclusivo']=0;
-$counts['modo']['sms']['organizzatore']=0;
-$counts['modo']['sms']['']=0;
-$counts['modo']['sms']['tot']=0;
-$counts['modo']['brochure']['no']=0;
-$counts['modo']['brochure']['saltuario']=0;
-$counts['modo']['brochure']['assiduo']=0;
-$counts['modo']['brochure']['esclusivo']=0;
-$counts['modo']['brochure']['organizzatore']=0;
-$counts['modo']['brochure']['']=0;
-$counts['modo']['brochure']['tot']=0;
-$counts['modo']['calendario']['no']=0;
-$counts['modo']['calendario']['saltuario']=0;
-$counts['modo']['calendario']['assiduo']=0;
-$counts['modo']['calendario']['esclusivo']=0;
-$counts['modo']['calendario']['organizzatore']=0;
-$counts['modo']['calendario']['']=0;
-$counts['modo']['calendario']['tot']=0;
-$counts['modo']['passaparola']['no']=0;
-$counts['modo']['passaparola']['saltuario']=0;
-$counts['modo']['passaparola']['assiduo']=0;
-$counts['modo']['passaparola']['esclusivo']=0;
-$counts['modo']['passaparola']['organizzatore']=0;
-$counts['modo']['passaparola']['']=0;
-$counts['modo']['passaparola']['tot']=0;
-$counts['modo']['altro']['no']=0;
-$counts['modo']['altro']['saltuario']=0;
-$counts['modo']['altro']['assiduo']=0;
-$counts['modo']['altro']['esclusivo']=0;
-$counts['modo']['altro']['organizzatore']=0;
-$counts['modo']['altro']['']=0;
-$counts['modo']['altro']['tot']=0;
-$counts['modo']['']['no']=0;
-$counts['modo']['']['saltuario']=0;
-$counts['modo']['']['assiduo']=0;
-$counts['modo']['']['esclusivo']=0;
-$counts['modo']['']['organizzatore']=0;
-$counts['modo']['']['']=0;
-$counts['modo']['']['tot']=0;
+function initModo(& $counts,$key){
+	$counts[$key]['sito']['no']=0;
+	$counts[$key]['sito']['saltuario']=0;
+	$counts[$key]['sito']['assiduo']=0;
+	$counts[$key]['sito']['esclusivo']=0;
+	$counts[$key]['sito']['organizzatore']=0;
+	$counts[$key]['sito']['']=0;
+	$counts[$key]['sito']['tot']=0;
+	$counts[$key]['facebook']['no']=0;
+	$counts[$key]['facebook']['saltuario']=0;
+	$counts[$key]['facebook']['assiduo']=0;
+	$counts[$key]['facebook']['esclusivo']=0;
+	$counts[$key]['facebook']['organizzatore']=0;
+	$counts[$key]['facebook']['']=0;
+	$counts[$key]['facebook']['tot']=0;
+	$counts[$key]['web']['no']=0;
+	$counts[$key]['web']['saltuario']=0;
+	$counts[$key]['web']['assiduo']=0;
+	$counts[$key]['web']['esclusivo']=0;
+	$counts[$key]['web']['organizzatore']=0;
+	$counts[$key]['web']['']=0;
+	$counts[$key]['web']['tot']=0;
+	$counts[$key]['messenger']['no']=0;
+	$counts[$key]['messenger']['saltuario']=0;
+	$counts[$key]['messenger']['assiduo']=0;
+	$counts[$key]['messenger']['esclusivo']=0;
+	$counts[$key]['messenger']['organizzatore']=0;
+	$counts[$key]['messenger']['']=0;
+	$counts[$key]['messenger']['tot']=0;
+	$counts[$key]['mail']['no']=0;
+	$counts[$key]['mail']['saltuario']=0;
+	$counts[$key]['mail']['assiduo']=0;
+	$counts[$key]['mail']['esclusivo']=0;
+	$counts[$key]['mail']['organizzatore']=0;
+	$counts[$key]['mail']['']=0;
+	$counts[$key]['mail']['tot']=0;
+	$counts[$key]['sms']['no']=0;
+	$counts[$key]['sms']['saltuario']=0;
+	$counts[$key]['sms']['assiduo']=0;
+	$counts[$key]['sms']['esclusivo']=0;
+	$counts[$key]['sms']['organizzatore']=0;
+	$counts[$key]['sms']['']=0;
+	$counts[$key]['sms']['tot']=0;
+	$counts[$key]['brochure']['no']=0;
+	$counts[$key]['brochure']['saltuario']=0;
+	$counts[$key]['brochure']['assiduo']=0;
+	$counts[$key]['brochure']['esclusivo']=0;
+	$counts[$key]['brochure']['organizzatore']=0;
+	$counts[$key]['brochure']['']=0;
+	$counts[$key]['brochure']['tot']=0;
+	$counts[$key]['calendario']['no']=0;
+	$counts[$key]['calendario']['saltuario']=0;
+	$counts[$key]['calendario']['assiduo']=0;
+	$counts[$key]['calendario']['esclusivo']=0;
+	$counts[$key]['calendario']['organizzatore']=0;
+	$counts[$key]['calendario']['']=0;
+	$counts[$key]['calendario']['tot']=0;
+	$counts[$key]['passaparola']['no']=0;
+	$counts[$key]['passaparola']['saltuario']=0;
+	$counts[$key]['passaparola']['assiduo']=0;
+	$counts[$key]['passaparola']['esclusivo']=0;
+	$counts[$key]['passaparola']['organizzatore']=0;
+	$counts[$key]['passaparola']['']=0;
+	$counts[$key]['passaparola']['tot']=0;
+	$counts[$key]['altro']['no']=0;
+	$counts[$key]['altro']['saltuario']=0;
+	$counts[$key]['altro']['assiduo']=0;
+	$counts[$key]['altro']['esclusivo']=0;
+	$counts[$key]['altro']['organizzatore']=0;
+	$counts[$key]['altro']['']=0;
+	$counts[$key]['altro']['tot']=0;
+	$counts[$key]['']['no']=0;
+	$counts[$key]['']['saltuario']=0;
+	$counts[$key]['']['assiduo']=0;
+	$counts[$key]['']['esclusivo']=0;
+	$counts[$key]['']['organizzatore']=0;
+	$counts[$key]['']['']=0;
+	$counts[$key]['']['tot']=0;
+}
 
+initModo($counts,'modo');
+initModo($counts,'mododesiderata');
 
 	$handle = fopen('risultati.tsv', 'r') or die('Unable to open file');
 	$i=1;
@@ -313,5 +329,91 @@ $counts['modo']['']['tot']=0;
 		<td><?=$counts['modo']['altro']['tot'];?></td>
 	</tr>
 </table>
+
+<table>
+	<caption>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</caption>
+	<tr>
+		<td>attraverso il sito web dello spazio</td>
+		<td><?=$counts['mododesiderata']['sito']['no'];?></td>
+		<td><?=$counts['mododesiderata']['sito']['saltuario'];?></td>
+		<td><?=$counts['mododesiderata']['sito']['assiduo'];?></td>
+		<td><?=$counts['mododesiderata']['sito']['esclusivo'];?></td>
+		<td><?=$counts['mododesiderata']['sito']['organizzatore'];?></td>
+		<td><?=$counts['mododesiderata']['sito']['tot'];?></td>
+	</tr>
+	<tr>
+		<td>attraverso la pagina facebook dello spazio sociale</td>
+		<td><?=$counts['mododesiderata']['facebook']['no'];?></td>
+		<td><?=$counts['mododesiderata']['facebook']['saltuario'];?></td>
+		<td><?=$counts['mododesiderata']['facebook']['assiduo'];?></td>
+		<td><?=$counts['mododesiderata']['facebook']['esclusivo'];?></td>
+		<td><?=$counts['mododesiderata']['facebook']['organizzatore'];?></td>
+		<td><?=$counts['mododesiderata']['facebook']['tot'];?></td>
+	</tr>
+	<tr>
+		<td>attraverso siti generici di eventi</td>
+		<td><?=$counts['mododesiderata']['web']['no'];?></td>
+		<td><?=$counts['mododesiderata']['web']['saltuario'];?></td>
+		<td><?=$counts['mododesiderata']['web']['assiduo'];?></td>
+		<td><?=$counts['mododesiderata']['web']['esclusivo'];?></td>
+		<td><?=$counts['mododesiderata']['web']['organizzatore'];?></td>
+		<td><?=$counts['mododesiderata']['web']['tot'];?></td>
+	</tr>
+	<tr>
+		<td>con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</td>
+		<td><?=$counts['mododesiderata']['messenger']['no'];?></td>
+		<td><?=$counts['mododesiderata']['messenger']['saltuario'];?></td>
+		<td><?=$counts['mododesiderata']['messenger']['assiduo'];?></td>
+		<td><?=$counts['mododesiderata']['messenger']['esclusivo'];?></td>
+		<td><?=$counts['mododesiderata']['messenger']['organizzatore'];?></td>
+		<td><?=$counts['mododesiderata']['messenger']['tot'];?></td>
+	</tr>
+	<tr>
+		<td>via e-mail</td>
+		<td><?=$counts['mododesiderata']['mail']['no'];?></td>
+		<td><?=$counts['mododesiderata']['mail']['saltuario'];?></td>
+		<td><?=$counts['mododesiderata']['mail']['assiduo'];?></td>
+		<td><?=$counts['mododesiderata']['mail']['esclusivo'];?></td>
+		<td><?=$counts['mododesiderata']['mail']['organizzatore'];?></td>
+		<td><?=$counts['mododesiderata']['mail']['tot'];?></td>
+	</tr>
+	<tr>
+		<td>con degli SMS</td>
+		<td><?=$counts['mododesiderata']['sms']['no'];?></td>
+		<td><?=$counts['mododesiderata']['sms']['saltuario'];?></td>
+		<td><?=$counts['mododesiderata']['sms']['assiduo'];?></td>
+		<td><?=$counts['mododesiderata']['sms']['esclusivo'];?></td>
+		<td><?=$counts['mododesiderata']['sms']['organizzatore'];?></td>
+		<td><?=$counts['mododesiderata']['sms']['tot'];?></td>
+	</tr>
+	<tr>
+		<td>con una brochure cartacea</td>
+		<td><?=$counts['mododesiderata']['brochure']['no'];?></td>
+		<td><?=$counts['mododesiderata']['brochure']['saltuario'];?></td>
+		<td><?=$counts['mododesiderata']['brochure']['assiduo'];?></td>
+		<td><?=$counts['mododesiderata']['brochure']['esclusivo'];?></td>
+		<td><?=$counts['mododesiderata']['brochure']['organizzatore'];?></td>
+		<td><?=$counts['mododesiderata']['brochure']['tot'];?></td>
+	</tr>
+	<tr>
+		<td>attraverso un calendario esposto in sede</td>
+		<td><?=$counts['mododesiderata']['calendario']['no'];?></td>
+		<td><?=$counts['modo']['calendario']['saltuario'];?></td>
+		<td><?=$counts['modo']['calendario']['assiduo'];?></td>
+		<td><?=$counts['modo']['calendario']['esclusivo'];?></td>
+		<td><?=$counts['modo']['calendario']['organizzatore'];?></td>
+		<td><?=$counts['modo']['calendario']['tot'];?></td>
+	</tr>
+	<tr>
+		<td>altro</td>
+		<td><?=$counts['mododesiderata']['altro']['no'];?></td>
+		<td><?=$counts['mododesiderata']['altro']['saltuario'];?></td>
+		<td><?=$counts['mododesiderata']['altro']['assiduo'];?></td>
+		<td><?=$counts['mododesiderata']['altro']['esclusivo'];?></td>
+		<td><?=$counts['mododesiderata']['altro']['organizzatore'];?></td>
+		<td><?=$counts['mododesiderata']['altro']['tot'];?></td>
+	</tr>
+</table>
+
 </body>
 </html>
