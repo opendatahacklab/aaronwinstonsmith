@@ -48,6 +48,8 @@
 		$counts['tipoutente'][$result[1]]++;
 		$counts['modo'][$result[2]][$result[1]]++;
 		$counts['modo'][$result[2]]['tot']++;
+		$counts['preavviso'][$result[13]][$result[1]]++;
+		$counts['preavviso'][$result[13]]['tot']++;
 ?>
 		<h2>Questionario <?=$n;?> del <?=$result[0]?></h2> 
 		<h3>In che rapporto sei con le associazioni e gli spazi sociali?</h3>
@@ -113,88 +115,48 @@ $counts['tipoutente']['esclusivo']=0;
 $counts['tipoutente']['organizzatore']=0;
 $counts['tipoutente']['']=0;
 
+function initPerType(& $counts,$key1, $key2){
+	$counts[$key1][$key2]['no']=0;
+	$counts[$key1][$key2]['saltuario']=0;
+	$counts[$key1][$key2]['assiduo']=0;
+	$counts[$key1][$key2]['esclusivo']=0;
+	$counts[$key1][$key2]['organizzatore']=0;
+	$counts[$key1][$key2]['']=0;
+	$counts[$key1][$key2]['tot']=0;
+}
+
 function initModo(& $counts,$key){
-	$counts[$key]['sito']['no']=0;
-	$counts[$key]['sito']['saltuario']=0;
-	$counts[$key]['sito']['assiduo']=0;
-	$counts[$key]['sito']['esclusivo']=0;
-	$counts[$key]['sito']['organizzatore']=0;
-	$counts[$key]['sito']['']=0;
-	$counts[$key]['sito']['tot']=0;
-	$counts[$key]['facebook']['no']=0;
-	$counts[$key]['facebook']['saltuario']=0;
-	$counts[$key]['facebook']['assiduo']=0;
-	$counts[$key]['facebook']['esclusivo']=0;
-	$counts[$key]['facebook']['organizzatore']=0;
-	$counts[$key]['facebook']['']=0;
-	$counts[$key]['facebook']['tot']=0;
-	$counts[$key]['web']['no']=0;
-	$counts[$key]['web']['saltuario']=0;
-	$counts[$key]['web']['assiduo']=0;
-	$counts[$key]['web']['esclusivo']=0;
-	$counts[$key]['web']['organizzatore']=0;
-	$counts[$key]['web']['']=0;
-	$counts[$key]['web']['tot']=0;
-	$counts[$key]['messenger']['no']=0;
-	$counts[$key]['messenger']['saltuario']=0;
-	$counts[$key]['messenger']['assiduo']=0;
-	$counts[$key]['messenger']['esclusivo']=0;
-	$counts[$key]['messenger']['organizzatore']=0;
-	$counts[$key]['messenger']['']=0;
-	$counts[$key]['messenger']['tot']=0;
-	$counts[$key]['mail']['no']=0;
-	$counts[$key]['mail']['saltuario']=0;
-	$counts[$key]['mail']['assiduo']=0;
-	$counts[$key]['mail']['esclusivo']=0;
-	$counts[$key]['mail']['organizzatore']=0;
-	$counts[$key]['mail']['']=0;
-	$counts[$key]['mail']['tot']=0;
-	$counts[$key]['sms']['no']=0;
-	$counts[$key]['sms']['saltuario']=0;
-	$counts[$key]['sms']['assiduo']=0;
-	$counts[$key]['sms']['esclusivo']=0;
-	$counts[$key]['sms']['organizzatore']=0;
-	$counts[$key]['sms']['']=0;
-	$counts[$key]['sms']['tot']=0;
-	$counts[$key]['brochure']['no']=0;
-	$counts[$key]['brochure']['saltuario']=0;
-	$counts[$key]['brochure']['assiduo']=0;
-	$counts[$key]['brochure']['esclusivo']=0;
-	$counts[$key]['brochure']['organizzatore']=0;
-	$counts[$key]['brochure']['']=0;
-	$counts[$key]['brochure']['tot']=0;
-	$counts[$key]['calendario']['no']=0;
-	$counts[$key]['calendario']['saltuario']=0;
-	$counts[$key]['calendario']['assiduo']=0;
-	$counts[$key]['calendario']['esclusivo']=0;
-	$counts[$key]['calendario']['organizzatore']=0;
-	$counts[$key]['calendario']['']=0;
-	$counts[$key]['calendario']['tot']=0;
-	$counts[$key]['passaparola']['no']=0;
-	$counts[$key]['passaparola']['saltuario']=0;
-	$counts[$key]['passaparola']['assiduo']=0;
-	$counts[$key]['passaparola']['esclusivo']=0;
-	$counts[$key]['passaparola']['organizzatore']=0;
-	$counts[$key]['passaparola']['']=0;
-	$counts[$key]['passaparola']['tot']=0;
-	$counts[$key]['altro']['no']=0;
-	$counts[$key]['altro']['saltuario']=0;
-	$counts[$key]['altro']['assiduo']=0;
-	$counts[$key]['altro']['esclusivo']=0;
-	$counts[$key]['altro']['organizzatore']=0;
-	$counts[$key]['altro']['']=0;
-	$counts[$key]['altro']['tot']=0;
-	$counts[$key]['']['no']=0;
-	$counts[$key]['']['saltuario']=0;
-	$counts[$key]['']['assiduo']=0;
-	$counts[$key]['']['esclusivo']=0;
-	$counts[$key]['']['organizzatore']=0;
-	$counts[$key]['']['']=0;
-	$counts[$key]['']['tot']=0;
+	initPerType($counts,$key,'sito');
+	initPerType($counts,$key,'facebook');
+	initPerType($counts,$key,'web');
+	initPerType($counts,$key,'messenger');
+	initPerType($counts,$key,'mail');
+	initPerType($counts,$key,'sms');
+	initPerType($counts,$key,'brochure');
+	initPerType($counts,$key,'calendario');
+	initPerType($counts,$key,'passaparola');
+	initPerType($counts,$key,'altro');
+	initPerType($counts,$key,'');
+}
+
+function printCountRow(& $counts, $title, $key1, $key2){
+		echo "\t<tr>\n";
+		echo "\t\t<td>$title</td>\n";
+		echo "\t\t<td>".$counts[$key1][$key2]['no']."</td>\n";
+		echo "\t\t<td>".$counts[$key1][$key2]['saltuario']."</td>\n";
+		echo "\t\t<td>".$counts[$key1][$key2]['assiduo']."</td>\n";
+		echo "\t\t<td>".$counts[$key1][$key2]['esclusivo']."</td>\n";
+		echo "\t\t<td>".$counts[$key1][$key2]['organizzatore']."</td>\n";
+		echo "\t\t<td>".$counts[$key1][$key2]['tot']."</td>\n";
+		echo "\t</tr>\n";
 }
 
 initModo($counts,'modo');
 initModo($counts,'mododesiderata');
+initPerType($counts,'preavviso','giornaliero');
+initPerType($counts,'preavviso','settimanale');
+initPerType($counts,'preavviso','mensile');
+initPerType($counts,'preavviso','');
 
 	$handle = fopen('risultati.tsv', 'r') or die('Unable to open file');
 	$i=1;
@@ -238,181 +200,44 @@ initModo($counts,'mododesiderata');
 
 <table>
 	<caption>In che modo vieni informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</caption>
-	<tr>
-		<td>attraverso il sito web dello spazio</td>
-		<td><?=$counts['modo']['sito']['no'];?></td>
-		<td><?=$counts['modo']['sito']['saltuario'];?></td>
-		<td><?=$counts['modo']['sito']['assiduo'];?></td>
-		<td><?=$counts['modo']['sito']['esclusivo'];?></td>
-		<td><?=$counts['modo']['sito']['organizzatore'];?></td>
-		<td><?=$counts['modo']['sito']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>attraverso la pagina facebook dello spazio sociale</td>
-		<td><?=$counts['modo']['facebook']['no'];?></td>
-		<td><?=$counts['modo']['facebook']['saltuario'];?></td>
-		<td><?=$counts['modo']['facebook']['assiduo'];?></td>
-		<td><?=$counts['modo']['facebook']['esclusivo'];?></td>
-		<td><?=$counts['modo']['facebook']['organizzatore'];?></td>
-		<td><?=$counts['modo']['facebook']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>attraverso siti generici di eventi</td>
-		<td><?=$counts['modo']['web']['no'];?></td>
-		<td><?=$counts['modo']['web']['saltuario'];?></td>
-		<td><?=$counts['modo']['web']['assiduo'];?></td>
-		<td><?=$counts['modo']['web']['esclusivo'];?></td>
-		<td><?=$counts['modo']['web']['organizzatore'];?></td>
-		<td><?=$counts['modo']['web']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</td>
-		<td><?=$counts['modo']['messenger']['no'];?></td>
-		<td><?=$counts['modo']['messenger']['saltuario'];?></td>
-		<td><?=$counts['modo']['messenger']['assiduo'];?></td>
-		<td><?=$counts['modo']['messenger']['esclusivo'];?></td>
-		<td><?=$counts['modo']['messenger']['organizzatore'];?></td>
-		<td><?=$counts['modo']['messenger']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>via e-mail</td>
-		<td><?=$counts['modo']['mail']['no'];?></td>
-		<td><?=$counts['modo']['mail']['saltuario'];?></td>
-		<td><?=$counts['modo']['mail']['assiduo'];?></td>
-		<td><?=$counts['modo']['mail']['esclusivo'];?></td>
-		<td><?=$counts['modo']['mail']['organizzatore'];?></td>
-		<td><?=$counts['modo']['mail']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>con degli SMS</td>
-		<td><?=$counts['modo']['sms']['no'];?></td>
-		<td><?=$counts['modo']['sms']['saltuario'];?></td>
-		<td><?=$counts['modo']['sms']['assiduo'];?></td>
-		<td><?=$counts['modo']['sms']['esclusivo'];?></td>
-		<td><?=$counts['modo']['sms']['organizzatore'];?></td>
-		<td><?=$counts['modo']['sms']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>con una brochure cartacea</td>
-		<td><?=$counts['modo']['brochure']['no'];?></td>
-		<td><?=$counts['modo']['brochure']['saltuario'];?></td>
-		<td><?=$counts['modo']['brochure']['assiduo'];?></td>
-		<td><?=$counts['modo']['brochure']['esclusivo'];?></td>
-		<td><?=$counts['modo']['brochure']['organizzatore'];?></td>
-		<td><?=$counts['modo']['brochure']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>attraverso un calendario esposto in sede</td>
-		<td><?=$counts['modo']['calendario']['no'];?></td>
-		<td><?=$counts['modo']['calendario']['saltuario'];?></td>
-		<td><?=$counts['modo']['calendario']['assiduo'];?></td>
-		<td><?=$counts['modo']['calendario']['esclusivo'];?></td>
-		<td><?=$counts['modo']['calendario']['organizzatore'];?></td>
-		<td><?=$counts['modo']['calendario']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>con il passaparola</td>
-		<td><?=$counts['modo']['passaparola']['no'];?></td>
-		<td><?=$counts['modo']['passaparola']['saltuario'];?></td>
-		<td><?=$counts['modo']['passaparola']['assiduo'];?></td>
-		<td><?=$counts['modo']['passaparola']['esclusivo'];?></td>
-		<td><?=$counts['modo']['passaparola']['organizzatore'];?></td>
-		<td><?=$counts['modo']['passaparola']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>altro</td>
-		<td><?=$counts['modo']['altro']['no'];?></td>
-		<td><?=$counts['modo']['altro']['saltuario'];?></td>
-		<td><?=$counts['modo']['altro']['assiduo'];?></td>
-		<td><?=$counts['modo']['altro']['esclusivo'];?></td>
-		<td><?=$counts['modo']['altro']['organizzatore'];?></td>
-		<td><?=$counts['modo']['altro']['tot'];?></td>
-	</tr>
+<?php 
+	printCountRow($counts, 'attraverso il sito web dello spazio','modo','sito');
+	printCountRow($counts, 'attraverso la pagina facebook dello spazio sociale','modo','facebook');
+	printCountRow($counts, 'attraverso siti generici di eventi','modo','web');
+	printCountRow($counts, 'con un messaggio su internet (WhatsApp, Facebook Messenger, ...)','modo','messenger');
+	printCountRow($counts, 'via e-mail','modo','mail');
+	printCountRow($counts, 'con degli SMS','modo','sms');
+	printCountRow($counts, 'con una brochure cartacea','modo','brochure');
+	printCountRow($counts, 'attraverso un calendario esposto in sede','modo','calendario');
+	printCountRow($counts, 'con una brochure cartacea','modo','brochure');
+	printCountRow($counts, 'con il passaparola','modo','passaparola');
+	printCountRow($counts, 'altro','modo','altro');
+?> 
 </table>
 
 <table>
 	<caption>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</caption>
-	<tr>
-		<td>attraverso il sito web dello spazio</td>
-		<td><?=$counts['mododesiderata']['sito']['no'];?></td>
-		<td><?=$counts['mododesiderata']['sito']['saltuario'];?></td>
-		<td><?=$counts['mododesiderata']['sito']['assiduo'];?></td>
-		<td><?=$counts['mododesiderata']['sito']['esclusivo'];?></td>
-		<td><?=$counts['mododesiderata']['sito']['organizzatore'];?></td>
-		<td><?=$counts['mododesiderata']['sito']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>attraverso la pagina facebook dello spazio sociale</td>
-		<td><?=$counts['mododesiderata']['facebook']['no'];?></td>
-		<td><?=$counts['mododesiderata']['facebook']['saltuario'];?></td>
-		<td><?=$counts['mododesiderata']['facebook']['assiduo'];?></td>
-		<td><?=$counts['mododesiderata']['facebook']['esclusivo'];?></td>
-		<td><?=$counts['mododesiderata']['facebook']['organizzatore'];?></td>
-		<td><?=$counts['mododesiderata']['facebook']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>attraverso siti generici di eventi</td>
-		<td><?=$counts['mododesiderata']['web']['no'];?></td>
-		<td><?=$counts['mododesiderata']['web']['saltuario'];?></td>
-		<td><?=$counts['mododesiderata']['web']['assiduo'];?></td>
-		<td><?=$counts['mododesiderata']['web']['esclusivo'];?></td>
-		<td><?=$counts['mododesiderata']['web']['organizzatore'];?></td>
-		<td><?=$counts['mododesiderata']['web']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</td>
-		<td><?=$counts['mododesiderata']['messenger']['no'];?></td>
-		<td><?=$counts['mododesiderata']['messenger']['saltuario'];?></td>
-		<td><?=$counts['mododesiderata']['messenger']['assiduo'];?></td>
-		<td><?=$counts['mododesiderata']['messenger']['esclusivo'];?></td>
-		<td><?=$counts['mododesiderata']['messenger']['organizzatore'];?></td>
-		<td><?=$counts['mododesiderata']['messenger']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>via e-mail</td>
-		<td><?=$counts['mododesiderata']['mail']['no'];?></td>
-		<td><?=$counts['mododesiderata']['mail']['saltuario'];?></td>
-		<td><?=$counts['mododesiderata']['mail']['assiduo'];?></td>
-		<td><?=$counts['mododesiderata']['mail']['esclusivo'];?></td>
-		<td><?=$counts['mododesiderata']['mail']['organizzatore'];?></td>
-		<td><?=$counts['mododesiderata']['mail']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>con degli SMS</td>
-		<td><?=$counts['mododesiderata']['sms']['no'];?></td>
-		<td><?=$counts['mododesiderata']['sms']['saltuario'];?></td>
-		<td><?=$counts['mododesiderata']['sms']['assiduo'];?></td>
-		<td><?=$counts['mododesiderata']['sms']['esclusivo'];?></td>
-		<td><?=$counts['mododesiderata']['sms']['organizzatore'];?></td>
-		<td><?=$counts['mododesiderata']['sms']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>con una brochure cartacea</td>
-		<td><?=$counts['mododesiderata']['brochure']['no'];?></td>
-		<td><?=$counts['mododesiderata']['brochure']['saltuario'];?></td>
-		<td><?=$counts['mododesiderata']['brochure']['assiduo'];?></td>
-		<td><?=$counts['mododesiderata']['brochure']['esclusivo'];?></td>
-		<td><?=$counts['mododesiderata']['brochure']['organizzatore'];?></td>
-		<td><?=$counts['mododesiderata']['brochure']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>attraverso un calendario esposto in sede</td>
-		<td><?=$counts['mododesiderata']['calendario']['no'];?></td>
-		<td><?=$counts['modo']['calendario']['saltuario'];?></td>
-		<td><?=$counts['modo']['calendario']['assiduo'];?></td>
-		<td><?=$counts['modo']['calendario']['esclusivo'];?></td>
-		<td><?=$counts['modo']['calendario']['organizzatore'];?></td>
-		<td><?=$counts['modo']['calendario']['tot'];?></td>
-	</tr>
-	<tr>
-		<td>altro</td>
-		<td><?=$counts['mododesiderata']['altro']['no'];?></td>
-		<td><?=$counts['mododesiderata']['altro']['saltuario'];?></td>
-		<td><?=$counts['mododesiderata']['altro']['assiduo'];?></td>
-		<td><?=$counts['mododesiderata']['altro']['esclusivo'];?></td>
-		<td><?=$counts['mododesiderata']['altro']['organizzatore'];?></td>
-		<td><?=$counts['mododesiderata']['altro']['tot'];?></td>
-	</tr>
+<?php 
+	printCountRow($counts, 'attraverso il sito web dello spazio','mododesiderata','sito');
+	printCountRow($counts, 'attraverso la pagina facebook dello spazio sociale','mododesiderata','facebook');
+	printCountRow($counts, 'attraverso siti generici di eventi','mododesiderata','web');
+	printCountRow($counts, 'con un messaggio su internet (WhatsApp, Facebook Messenger, ...)','mododesiderata','messenger');
+	printCountRow($counts, 'via e-mail','mododesiderata','mail');
+	printCountRow($counts, 'con degli SMS','mododesiderata','sms');
+	printCountRow($counts, 'con una brochure cartacea','mododesiderata','brochure');
+	printCountRow($counts, 'attraverso un calendario esposto in sede','mododesiderata','calendario');
+	printCountRow($counts, 'con una brochure cartacea','mododesiderata','brochure');
+	printCountRow($counts, 'altro','mododesiderata','altro');
+?> 
+</table>
+
+<table>
+	<caption>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave;?</caption>
+<?php 
+	printCountRow($counts, 'anche il giorno stesso va bene','preavviso','giornaliero');
+	printCountRow($counts, 'almeno una settimana prima','preavviso','settimanale');
+	printCountRow($counts, 'almeno un mese prima','preavviso','mensile');
+?>
 </table>
 
 </body>
