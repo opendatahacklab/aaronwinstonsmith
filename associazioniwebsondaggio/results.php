@@ -50,6 +50,8 @@
 		$counts['modo'][$result[2]]['tot']++;
 		$counts['preavviso'][$result[13]][$result[1]]++;
 		$counts['preavviso'][$result[13]]['tot']++;
+		$counts['sitoweb'][$result[14]][$result[1]]++;
+		$counts['sitoweb'][$result[14]]['tot']++;
 ?>
 		<h2>Questionario <?=$n;?> del <?=$result[0]?></h2> 
 		<h3>In che rapporto sei con le associazioni e gli spazi sociali?</h3>
@@ -84,7 +86,7 @@
 			<li <?=processDesiderata('sms', $result[9], $result[1], $counts);?> >con degli SMS</li>
 			<li <?=processDesiderata('brochure', $result[10], $result[1], $counts);?> >con una brochure cartacea</li>
 			<li <?=processDesiderata('calendario', $result[11], $result[1], $counts);?> >attraverso un calendario esposto in sede</li>
-			<li <?php if (!(empty($result[12]))){ 	$counts['mododesiderata']['altro'][$userType]++; $counts['mododesiderata']['altro']['tot']++; echo 'class="checked"';} ?> >Altro: <?=$result[12];?></li>
+			<li <?php if (!(empty($result[12]))){ 	$counts['mododesiderata']['altro'][$result[1]]++; $counts['mododesiderata']['altro']['tot']++; echo 'class="checked"';} ?> >Altro: <?=$result[12];?></li>
 		</ul>
 
 		<h3>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave;?</h3>
@@ -139,6 +141,19 @@ function initModo(& $counts,$key){
 	initPerType($counts,$key,'');
 }
 
+initModo($counts,'modo');
+initModo($counts,'mododesiderata');
+initPerType($counts,'preavviso','giornaliero');
+initPerType($counts,'preavviso','settimanale');
+initPerType($counts,'preavviso','mensile');
+initPerType($counts,'preavviso','');
+
+initPerType($counts,'sitoweb','molto');
+initPerType($counts,'sitoweb','abbastanza');
+initPerType($counts,'sitoweb','no');
+initPerType($counts,'sitoweb','nointernet');
+
+
 function printCountRow(& $counts, $title, $key1, $key2){
 		echo "\t<tr>\n";
 		echo "\t\t<td>$title</td>\n";
@@ -151,12 +166,6 @@ function printCountRow(& $counts, $title, $key1, $key2){
 		echo "\t</tr>\n";
 }
 
-initModo($counts,'modo');
-initModo($counts,'mododesiderata');
-initPerType($counts,'preavviso','giornaliero');
-initPerType($counts,'preavviso','settimanale');
-initPerType($counts,'preavviso','mensile');
-initPerType($counts,'preavviso','');
 
 	$handle = fopen('risultati.tsv', 'r') or die('Unable to open file');
 	$i=1;
@@ -240,5 +249,15 @@ initPerType($counts,'preavviso','');
 ?>
 </table>
 
+<table>
+	<caption>Quanto &egrave; importante che una organizzazione abbia un 
+				proprio sito con un proprio nome di dominio (ad esempio www.miapiccolaassociazione.it)?</caption>
+<?php
+	printCountRow($counts, '&egrave; fondamentale','sitoweb','molto');
+	printCountRow($counts, '&egrave; opportuno ma pu&ograve; andare bene anche una pagina su una piattaforma esterna (ad esempio una pagina facebook)','sitoweb','abbastanza');
+	printCountRow($counts, 'non &egrave; necessario, &egrave; sufficiente; una pagina su una piattaforma esterna (ad esempio una pagina facebook)','sitoweb','no');
+	printCountRow($counts, 'non &egrave; necessario essere presenti su internet','sitoweb','nointernet');
+?>
+</table>
 </body>
 </html>
