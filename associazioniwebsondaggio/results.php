@@ -44,13 +44,13 @@
 	 * @param $result a row in the results csv
 	 * @counts is an associative bidimensional array with field and value as keys, which contains the number of occurrences of a value for each field
 	 */
-	function printSingle($n, $result, & $counts){
+	function printSingle($n, $result, & $counts, & $modoaltro, & $mododesiderataaltro){
 		$counts['tipoutente'][$result[1]]++;
 		$counts['modo'][$result[2]][$result[1]]++;
 		$counts['modo'][$result[2]]['tot']++;
 		$counts['preavviso'][$result[13]][$result[1]]++;
 		$counts['preavviso'][$result[13]]['tot']++;
-		$counts['sitoweb'][$result[14]][$result[1]]++;
+       		$counts['sitoweb'][$result[14]][$result[1]]++;
 		$counts['sitoweb'][$result[14]]['tot']++;
 ?>
 		<h2>Questionario <?=$n;?> del <?=$result[0]?></h2> 
@@ -74,7 +74,17 @@
 			<li <?php if ($result[2]==='brochure') echo 'class="checked"';?> >con una brochure cartacea</li>
 			<li <?php if ($result[2]==='calendario') echo 'class="checked"';?> >attraverso un calendario esposto in sede</li>
 			<li <?php if ($result[2]==='passaparola') echo 'class="checked"';?> >con il passaparola</li>
-			<li <?php if ($result[2]==='altro') echo 'class="checked"';?> >Altro: <?=$result[3];?></li>
+			<li 
+			<?php 
+				if ($result[2]==='altro' && isset($result[3])){
+					$x=trim($result[3]); 
+					if ($x!=''){
+						echo "class=\"checked\">Altro:$result[3]</li>\n";
+						$modoaltro[count($modoaltro)]=$result[3];
+					}
+				} else
+					echo ">Altro:</li>\n";
+			?> 
 		</ul>
 		<h3>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</h3>
 		<ul>
@@ -86,7 +96,11 @@
 			<li <?=processDesiderata('sms', $result[9], $result[1], $counts);?> >con degli SMS</li>
 			<li <?=processDesiderata('brochure', $result[10], $result[1], $counts);?> >con una brochure cartacea</li>
 			<li <?=processDesiderata('calendario', $result[11], $result[1], $counts);?> >attraverso un calendario esposto in sede</li>
-			<li <?php if (!(empty($result[12]))){ 	$counts['mododesiderata']['altro'][$result[1]]++; $counts['mododesiderata']['altro']['tot']++; echo 'class="checked"';} ?> >Altro: <?=$result[12];?></li>
+			<li <?php if (!(empty($result[12]))){ 	
+				$counts['mododesiderata']['altro'][$result[1]]++; 
+				$counts['mododesiderata']['altro']['tot']++; echo 'class="checked"';
+				$mododesiderataaltro[count($mododesiderataaltro)]=$result[12];
+			} ?> >Altro: <?=$result[12];?></li>
 		</ul>
 
 		<h3>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave;?</h3>
@@ -116,6 +130,9 @@ $counts['tipoutente']['assiduo']=0;
 $counts['tipoutente']['esclusivo']=0;
 $counts['tipoutente']['organizzatore']=0;
 $counts['tipoutente']['']=0;
+
+$modoaltro=array();
+$mododesiderataaltro=array();
 
 function initPerType(& $counts,$key1, $key2){
 	$counts[$key1][$key2]['no']=0;
@@ -152,6 +169,7 @@ initPerType($counts,'sitoweb','molto');
 initPerType($counts,'sitoweb','abbastanza');
 initPerType($counts,'sitoweb','no');
 initPerType($counts,'sitoweb','nointernet');
+initPerType($counts,'sitoweb','');
 
 
 function printCountRow(& $counts, $title, $key1, $key2){
@@ -166,7 +184,12 @@ function printCountRow(& $counts, $title, $key1, $key2){
 		echo "\t</tr>\n";
 }
 
-
+function printArray($a){
+	echo "\t<ul>\n";
+	foreach($a as $v)
+		echo "\t\t<li>$v</li>\n";
+	echo "\t</ul>\n";	
+}
 	$handle = fopen('risultati.tsv', 'r') or die('Unable to open file');
 	$i=1;
 	//skip header
@@ -174,41 +197,65 @@ function printCountRow(& $counts, $title, $key1, $key2){
 	//parse lines
 	while (!feof($handle)) {
 		$data = fgetcsv($handle, 4096, "\t");
-	        printSingle($i,$data,$counts);
+	        printSingle($i,$data,$counts,$modoaltro,$mododesiderataaltro);
         	$i++;
     	}
 	fclose($handle);
 ?>
 
+<section>
+<h2 id="aggregates">Risultati Aggregati</h2>
 
-<h2>Risultati Aggregati</h2>
+<p>In questa sezione vengono riportati i risultati aggregati delle risposte ai vari quesiti del questionario. </p>
+
+<p>La prima domanda del questionario
+serve a capire il posizionamento di chi compila il questionario rispetto agli spazi sociali e alle attivit&agrave; aggregative. I profili rappresentati
+individuano variano da persone che non hanno alcun contatto con gli spazi sociali fino a chi ne &egrave; pienamente coinvolto.  In seguito
+i vari gradi di coinvolgimento verranno indicati da 0 (nessun coinvolgimento) a 4 (pienamente coinvolto). Nell'ultima colonna viene riportato il numero
+di utenti che hanno dato la risposta corrispondente.</p>
 
 <table>
 	<caption>In che rapporto sei con le associazioni e gli spazi sociali?</caption>
 	<tr>
+		<th>0</th>
 		<td>non li frequento</td>
 		<td><?php echo $counts['tipoutente']['no']; ?></td>
 	</tr>
 	<tr>
+		<th>1</th>
 		<td>li frequento saltuariamente</td>
 		<td><?php echo $counts['tipoutente']['saltuario']; ?></td>
 	</tr>
 	<tr>
+		<th>2</th>
 		<td>frequento spazi del genere regolarmente, ma allo stesso modo frequento locali e pub a vocazione commerciale</td>
 		<td><?php echo $counts['tipoutente']['assiduo']; ?></td>
 	</tr>
 	<tr>
+		<th>3</th>
 		<td>frequento quasi esclusivamente spazi sociali e associazioni, ma non prendo mai o quasi mai parte all'organizzazione</td>
 		<td><?php echo $counts['tipoutente']['esclusivo']; ?></td>
 	</tr>
 	<tr>
+		<th>4</th>
 		<td>frequento quasi esclusivamente spazi sociali e associazioni e prendo (spesso o a volte) parte all'organizzazione delle attivit&agrave;</td>
 		<td><?php echo $counts['tipoutente']['organizzatore']; ?></td>
 	</tr>
 </table>
 
+<p>Nelle seguenti tabelle vengono riportati i dati sulle risposte ai restati quesiti, aggregati per tipologia di utente (da 0 per indicare nessun 
+coinvolgimento nelle attivit&agrave; degli spazi sociali a 4 per indicare un alto coinvolgimento) e i valori totali.</p>
 <table>
 	<caption>In che modo vieni informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</caption>
+	<tr>
+		<th />
+		<th>0</th>
+		<th>1</th>
+		<th>2</th>
+		<th>3</th>
+		<th>4</th>
+		<th>Tot</th>
+	</tr>
 <?php 
 	printCountRow($counts, 'attraverso il sito web dello spazio','modo','sito');
 	printCountRow($counts, 'attraverso la pagina facebook dello spazio sociale','modo','facebook');
@@ -223,9 +270,20 @@ function printCountRow(& $counts, $title, $key1, $key2){
 	printCountRow($counts, 'altro','modo','altro');
 ?> 
 </table>
+<p>Seguono le risposte che gli utenti hanno indicato scegliendo l'opzione <em>Altro</em></p>
+<?php printArray($modoaltro); ?>
 
 <table>
 	<caption>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</caption>
+	<tr>
+		<th />
+		<th>0</th>
+		<th>1</th>
+		<th>2</th>
+		<th>3</th>
+		<th>4</th>
+		<th>Tot</th>
+	</tr>
 <?php 
 	printCountRow($counts, 'attraverso il sito web dello spazio','mododesiderata','sito');
 	printCountRow($counts, 'attraverso la pagina facebook dello spazio sociale','mododesiderata','facebook');
@@ -240,8 +298,20 @@ function printCountRow(& $counts, $title, $key1, $key2){
 ?> 
 </table>
 
+<p>Seguono le risposte che gli utenti hanno indicato scegliendo l'opzione <em>Altro</em></p>
+<?php printArray($mododesiderataaltro); ?>
+
 <table>
 	<caption>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave;?</caption>
+	<tr>
+		<th />
+		<th>0</th>
+		<th>1</th>
+		<th>2</th>
+		<th>3</th>
+		<th>4</th>
+		<th>Tot</th>
+	</tr>
 <?php 
 	printCountRow($counts, 'anche il giorno stesso va bene','preavviso','giornaliero');
 	printCountRow($counts, 'almeno una settimana prima','preavviso','settimanale');
@@ -252,6 +322,15 @@ function printCountRow(& $counts, $title, $key1, $key2){
 <table>
 	<caption>Quanto &egrave; importante che una organizzazione abbia un 
 				proprio sito con un proprio nome di dominio (ad esempio www.miapiccolaassociazione.it)?</caption>
+	<tr>
+		<th />
+		<th>0</th>
+		<th>1</th>
+		<th>2</th>
+		<th>3</th>
+		<th>4</th>
+		<th>Tot</th>
+	</tr>
 <?php
 	printCountRow($counts, '&egrave; fondamentale','sitoweb','molto');
 	printCountRow($counts, '&egrave; opportuno ma pu&ograve; andare bene anche una pagina su una piattaforma esterna (ad esempio una pagina facebook)','sitoweb','abbastanza');
@@ -259,5 +338,6 @@ function printCountRow(& $counts, $title, $key1, $key2){
 	printCountRow($counts, 'non &egrave; necessario essere presenti su internet','sitoweb','nointernet');
 ?>
 </table>
+</section>
 </body>
 </html>
