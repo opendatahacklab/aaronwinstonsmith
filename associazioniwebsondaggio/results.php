@@ -9,6 +9,10 @@
 			*.checked{
 				border : dotted 1px ;
 			}
+
+			*.sat{
+				background-color : #333333;
+			}
 		</style>
 	</head>
 	<body>
@@ -25,14 +29,86 @@
 
 <?php
 
+	/*
+	 * this is a map which associates to each value in the mode field the corresponding desiderata field in the csv (note that the mode field is a single field with the 
+	 * value expressed as string whereas for each possible desiderata there is a specific field which can be valued with 'y' or empty).
+	 */
+	$modeToDesiderata=array();
+	$modeToDesiderata['sito']=4;
+	$modeToDesiderata['facebook']=5;
+	$modeToDesiderata['web']=6;
+	$modeToDesiderata['messenger']=7;
+	$modeToDesiderata['mail']=8;
+	$modeToDesiderata['sms']=9;
+	$modeToDesiderata['brochure']=10;
+	$modeToDesiderata['calendario']=11;
+	$modeToDesiderata['altro']=12;
+	$modeToDesiderata['passaparola']=-1;
+
+	//count the "satisfied" users
+	$countSat=0;
+
+	$counts=array();
+	$counts['tipoutente']['no']=0;
+	$counts['tipoutente']['saltuario']=0;
+	$counts['tipoutente']['assiduo']=0;
+	$counts['tipoutente']['esclusivo']=0;
+	$counts['tipoutente']['organizzatore']=0;
+	$counts['tipoutente']['']=0;
+	
+	$modoaltro=array();
+	$mododesiderataaltro=array();
+
+	function initPerType(& $counts,$key1, $key2){
+		$counts[$key1][$key2]['no']=0;
+		$counts[$key1][$key2]['saltuario']=0;
+		$counts[$key1][$key2]['assiduo']=0;
+		$counts[$key1][$key2]['esclusivo']=0;
+		$counts[$key1][$key2]['organizzatore']=0;
+		$counts[$key1][$key2]['']=0;
+		$counts[$key1][$key2]['tot']=0;
+	}
+	
+	function initModo(& $counts,$key){
+		initPerType($counts,$key,'sito');
+		initPerType($counts,$key,'facebook');
+		initPerType($counts,$key,'web');
+		initPerType($counts,$key,'messenger');
+		initPerType($counts,$key,'mail');
+		initPerType($counts,$key,'sms');
+		initPerType($counts,$key,'brochure');
+		initPerType($counts,$key,'calendario');
+		initPerType($counts,$key,'passaparola');
+		initPerType($counts,$key,'altro');
+		initPerType($counts,$key,'');
+	}
+
+	initModo($counts,'modo');
+	initModo($counts,'mododesiderata');
+	initPerType($counts,'preavviso','giornaliero');
+	initPerType($counts,'preavviso','settimanale');
+	initPerType($counts,'preavviso','mensile');
+	initPerType($counts,'preavviso','');
+	
+	initPerType($counts,'sitoweb','molto');
+	initPerType($counts,'sitoweb','abbastanza');
+	initPerType($counts,'sitoweb','no');
+	initPerType($counts,'sitoweb','nointernet');
+	initPerType($counts,'sitoweb','');
+
+
 	/**
 	 * Process a mododesiderata field, return the string represnting that the option was checked.
          */
-	function processDesiderata($key, $value, $userType, & $counts){
+	function processDesiderata($key, $value, $userType, & $counts, $modo, & $countSat){
 		if ($value==='y'){
 			$counts['mododesiderata'][$key][$userType]++;
 			$counts['mododesiderata'][$key]['tot']++;
-			return 'class="checked"';
+			if ($modo==$key){
+				$countSat++;
+				return 'class="checked sat"';
+			}
+			else return 'class="checked"';
 		} else
 			return '';
 	}  
@@ -44,7 +120,8 @@
 	 * @param $result a row in the results csv
 	 * @counts is an associative bidimensional array with field and value as keys, which contains the number of occurrences of a value for each field
 	 */
-	function printSingle($n, $result, & $counts, & $modoaltro, & $mododesiderataaltro){
+	function printSingle($n, $result, & $counts, & $modoaltro, & $mododesiderataaltro, & $countSat){
+		global $modeToDesiderata;
 		$counts['tipoutente'][$result[1]]++;
 		$counts['modo'][$result[2]][$result[1]]++;
 		$counts['modo'][$result[2]]['tot']++;
@@ -88,15 +165,15 @@
 		</ul>
 		<h3>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</h3>
 		<ul>
-			<li <?=processDesiderata('sito', $result[4], $result[1], $counts);?> >attraverso il sito web dello spazio</li>
-			<li <?=processDesiderata('facebook', $result[5], $result[1], $counts);?> >attraverso la pagina facebook dello spazio sociale</li>
-			<li <?=processDesiderata('web', $result[6], $result[1], $counts);?> >attraverso siti generici di eventi</li>
-			<li <?=processDesiderata('messenger', $result[7], $result[1], $counts);?> >con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</li>
-			<li <?=processDesiderata('mail', $result[8], $result[1], $counts);?> >via e-mail</li>
-			<li <?=processDesiderata('sms', $result[9], $result[1], $counts);?> >con degli SMS</li>
-			<li <?=processDesiderata('brochure', $result[10], $result[1], $counts);?> >con una brochure cartacea</li>
-			<li <?=processDesiderata('calendario', $result[11], $result[1], $counts);?> >attraverso un calendario esposto in sede</li>
-			<li <?php if (!(empty($result[12]))){ 	
+    			<li <?=processDesiderata('sito', $result[$modeToDesiderata['sito']], $result[1], $counts, $result[2], $countSat);?> >attraverso il sito web dello spazio</li>
+			<li <?=processDesiderata('facebook', $result[$modeToDesiderata['facebook']], $result[1], $counts, $result[2], $countSat);?> >attraverso la pagina facebook dello spazio sociale</li>
+			<li <?=processDesiderata('web', $result[$modeToDesiderata['web']], $result[1], $counts, $result[2], $countSat);?> >attraverso siti generici di eventi</li>
+			<li <?=processDesiderata('messenger', $result[$modeToDesiderata['messenger']], $result[1], $counts, $result[2], $countSat);?> >con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</li>
+			<li <?=processDesiderata('mail', $result[$modeToDesiderata['mail']], $result[1], $counts, $result[2], $countSat);?> >via e-mail</li>
+			<li <?=processDesiderata('sms', $result[$modeToDesiderata['sms']], $result[1], $counts, $result[2], $countSat);?> >con degli SMS</li>
+			<li <?=processDesiderata('brochure', $result[$modeToDesiderata['brochure']], $result[1], $counts, $result[2], $countSat);?> >con una brochure cartacea</li>
+			<li <?=processDesiderata('calendario', $result[$modeToDesiderata['calendario']], $result[1], $counts, $result[2], $countSat);?> >attraverso un calendario esposto in sede</li>
+			<li <?php if (!(empty($result[$modeToDesiderata['altro']]))){ 	
 				$counts['mododesiderata']['altro'][$result[1]]++; 
 				$counts['mododesiderata']['altro']['tot']++; echo 'class="checked"';
 				$mododesiderataaltro[count($mododesiderataaltro)]=$result[12];
@@ -123,55 +200,6 @@
 <?php
 	}
 
-$counts=array();
-$counts['tipoutente']['no']=0;
-$counts['tipoutente']['saltuario']=0;
-$counts['tipoutente']['assiduo']=0;
-$counts['tipoutente']['esclusivo']=0;
-$counts['tipoutente']['organizzatore']=0;
-$counts['tipoutente']['']=0;
-
-$modoaltro=array();
-$mododesiderataaltro=array();
-
-function initPerType(& $counts,$key1, $key2){
-	$counts[$key1][$key2]['no']=0;
-	$counts[$key1][$key2]['saltuario']=0;
-	$counts[$key1][$key2]['assiduo']=0;
-	$counts[$key1][$key2]['esclusivo']=0;
-	$counts[$key1][$key2]['organizzatore']=0;
-	$counts[$key1][$key2]['']=0;
-	$counts[$key1][$key2]['tot']=0;
-}
-
-function initModo(& $counts,$key){
-	initPerType($counts,$key,'sito');
-	initPerType($counts,$key,'facebook');
-	initPerType($counts,$key,'web');
-	initPerType($counts,$key,'messenger');
-	initPerType($counts,$key,'mail');
-	initPerType($counts,$key,'sms');
-	initPerType($counts,$key,'brochure');
-	initPerType($counts,$key,'calendario');
-	initPerType($counts,$key,'passaparola');
-	initPerType($counts,$key,'altro');
-	initPerType($counts,$key,'');
-}
-
-initModo($counts,'modo');
-initModo($counts,'mododesiderata');
-initPerType($counts,'preavviso','giornaliero');
-initPerType($counts,'preavviso','settimanale');
-initPerType($counts,'preavviso','mensile');
-initPerType($counts,'preavviso','');
-
-initPerType($counts,'sitoweb','molto');
-initPerType($counts,'sitoweb','abbastanza');
-initPerType($counts,'sitoweb','no');
-initPerType($counts,'sitoweb','nointernet');
-initPerType($counts,'sitoweb','');
-
-
 function printCountRow(& $counts, $title, $key1, $key2){
 		echo "\t<tr>\n";
 		echo "\t\t<td>$title</td>\n";
@@ -197,7 +225,7 @@ function printArray($a){
 	//parse lines
 	while (!feof($handle)) {
 		$data = fgetcsv($handle, 4096, "\t");
-	        printSingle($i,$data,$counts,$modoaltro,$mododesiderataaltro);
+	        printSingle($i,$data,$counts,$modoaltro,$mododesiderataaltro, $countSat); 
         	$i++;
     	}
 	fclose($handle);
@@ -338,6 +366,8 @@ coinvolgimento nelle attivit&agrave; degli spazi sociali a 4 per indicare un alt
 	printCountRow($counts, 'non &egrave; necessario essere presenti su internet','sitoweb','nointernet');
 ?>
 </table>
+
+Soddisfatti <?=$countSat?>
 </section>
 </body>
 </html>
