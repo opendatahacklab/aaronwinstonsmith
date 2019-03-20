@@ -43,7 +43,7 @@
 	$modeToDesiderata['brochure']=10;
 	$modeToDesiderata['calendario']=11;
 	$modeToDesiderata['altro']=12;
-	$modeToDesiderata['passaparola']=-1;
+	//$modeToDesiderata['passaparola']=-1;
 
 	//count the "satisfied" users
 	$countSat=0;
@@ -56,8 +56,35 @@
 	$counts['tipoutente']['organizzatore']=0;
 	$counts['tipoutente']['']=0;
 	
+	initModo($counts,'modo');
+	initModo($counts,'mododesiderata');
+	initPerType($counts,'preavviso','giornaliero');
+	initPerType($counts,'preavviso','settimanale');
+	initPerType($counts,'preavviso','mensile');
+	initPerType($counts,'preavviso','');
+	
+	initPerType($counts,'sitoweb','molto');
+	initPerType($counts,'sitoweb','abbastanza');
+	initPerType($counts,'sitoweb','no');
+	initPerType($counts,'sitoweb','nointernet');
+	initPerType($counts,'sitoweb','');
+
 	$modoaltro=array();
 	$mododesiderataaltro=array();
+
+	/**
+	 * Map of desiderata of unsatisfied users. Unsatisfied user are those users which don't receive news
+	 * about events in any of the ways they wish (indicated in the desiderata fields). 
+	 */
+	$unsatDesiderata=array();
+	$unsatDesiderata['sito']=0; 
+	$unsatDesiderata['facebook']=0; 
+	$unsatDesiderata['web']=0; 
+	$unsatDesiderata['messenger']=0; 
+	$unsatDesiderata['mail']=0; 
+	$unsatDesiderata['sms']=0; 
+	$unsatDesiderata['brochure']=0; 
+	$unsatDesiderata['calendario']=0; 
 
 	function initPerType(& $counts,$key1, $key2){
 		$counts[$key1][$key2]['no']=0;
@@ -83,18 +110,6 @@
 		initPerType($counts,$key,'');
 	}
 
-	initModo($counts,'modo');
-	initModo($counts,'mododesiderata');
-	initPerType($counts,'preavviso','giornaliero');
-	initPerType($counts,'preavviso','settimanale');
-	initPerType($counts,'preavviso','mensile');
-	initPerType($counts,'preavviso','');
-	
-	initPerType($counts,'sitoweb','molto');
-	initPerType($counts,'sitoweb','abbastanza');
-	initPerType($counts,'sitoweb','no');
-	initPerType($counts,'sitoweb','nointernet');
-	initPerType($counts,'sitoweb','');
 
 
 	/**
@@ -114,13 +129,25 @@
 	}  
 
 	/**
+	 * Increment the unsatDesiderata array if the case.
+	 */
+	function processUnsatDesiderata($result, & $unsatDesiderata){
+		global $modeToDesiderata;
+		$mode=$result[2];
+		if (empty($mode) || $mode==='altro' || $mode!=='passaparola' && $result[$modeToDesiderata[$mode]]==='y')
+			return;
+		foreach ($modeToDesiderata as $d => $i)
+			if ($result[$i]==='y')
+				$unsatDesiderata[$d]++;
+	}
+	/**
 	 * print the result of a single survey submission
 	 *
 	 * @param $n row number
 	 * @param $result a row in the results csv
 	 * @counts is an associative bidimensional array with field and value as keys, which contains the number of occurrences of a value for each field
 	 */
-	function printSingle($n, $result, & $counts, & $modoaltro, & $mododesiderataaltro, & $countSat){
+	function printSingle($n, $result, & $counts, & $modoaltro, & $mododesiderataaltro, & $countSat, & $unsatDesiderata){
 		global $modeToDesiderata;
 		$counts['tipoutente'][$result[1]]++;
 		$counts['modo'][$result[2]][$result[1]]++;
@@ -129,6 +156,8 @@
 		$counts['preavviso'][$result[13]]['tot']++;
        		$counts['sitoweb'][$result[14]][$result[1]]++;
 		$counts['sitoweb'][$result[14]]['tot']++;
+
+		processUnsatDesiderata($result,  $unsatDesiderata)
 ?>
 		<h2>Questionario <?=$n;?> del <?=$result[0]?></h2> 
 		<h3>In che rapporto sei con le associazioni e gli spazi sociali?</h3>
@@ -225,7 +254,7 @@ function printArray($a){
 	//parse lines
 	while (!feof($handle)) {
 		$data = fgetcsv($handle, 4096, "\t");
-	        printSingle($i,$data,$counts,$modoaltro,$mododesiderataaltro, $countSat); 
+	        printSingle($i,$data,$counts,$modoaltro,$mododesiderataaltro, $countSat, $unsatDesiderata); 
         	$i++;
     	}
 	fclose($handle);
