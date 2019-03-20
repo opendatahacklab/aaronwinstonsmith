@@ -13,6 +13,11 @@
 			*.sat{
 				background-color : #333333;
 			}
+
+			article.questionario{
+				padding: 1em 1em 1em 1em;
+				border: solid 1px;
+			}
 		</style>
 	</head>
 	<body>
@@ -20,13 +25,13 @@
 		<p class="credits">
 			Powered by <a target="_blank" href="https://kibibit.net">Kibibit</a>
 		</p>
-		<p>In questa pagina vengono riportati i risultati del sondaggio <a href="index.html">Web e Associazioni Culturali</a>. Nel seguito troverete
-		elencati i singoli questionari sottomessi, aggiornati in tempo reale. &Egrave anche disponibile un <a href="risultati.tsv" type="text/tab-separated-values">file tsv</a> con i risultati,
-		 anch'esso aggiornato in tempo reale, ed un file <a href="README.txt">README</a> che spiega come interpretare il file tsv. Ricordiamo che i risultati del sondaggio sono rilasciati
-		con licenza <a href="https://creativecommons.org/licenses/by/3.0/it/deed.it">Creative Commons Attribuzione 3.0 Italia (CC BY 3.0 IT)</a>.  Si consiglia di usare la URL
-		di questa pagina per indicare la fonte, nel caso in cui decidiate di riutilizzare questi dati.
-		</p>
-
+		<p>In questa pagina vengono riportati i risultati del sondaggio <a href="index.html">Web e Associazioni Culturali</a>.</p> 
+		<h2 id="indice">Indice</h2>
+		<ul>
+			<li><a href="#questionari">Elenco dei questionari compilati</a></li>
+			<li><a href="#dati">Dati</a></li>
+			<li><a href="#aggregati">Risultati Aggregati</a></li>
+		</ul>
 <?php
 
 	/*
@@ -77,6 +82,8 @@
 	 * about events in any of the ways they wish (indicated in the desiderata fields). 
 	 */
 	$unsatDesiderata=array();
+	initModo($counts,'unsat');
+
 	$unsatDesiderata['sito']=0; 
 	$unsatDesiderata['facebook']=0; 
 	$unsatDesiderata['web']=0; 
@@ -131,14 +138,17 @@
 	/**
 	 * Increment the unsatDesiderata array if the case.
 	 */
-	function processUnsatDesiderata($result, & $unsatDesiderata){
+	function processUnsatDesiderata($result, & $counts){
 		global $modeToDesiderata;
 		$mode=$result[2];
+		$userType=$result[1];
 		if (empty($mode) || $mode==='altro' || $mode!=='passaparola' && $result[$modeToDesiderata[$mode]]==='y')
 			return;
 		foreach ($modeToDesiderata as $d => $i)
-			if ($result[$i]==='y')
-				$unsatDesiderata[$d]++;
+			if ($result[$i]==='y'){
+				$counts['unsat'][$d][$userType]++;
+				$counts['unsat'][$d]['tot']++;
+			}
 	}
 	/**
 	 * print the result of a single survey submission
@@ -147,7 +157,7 @@
 	 * @param $result a row in the results csv
 	 * @counts is an associative bidimensional array with field and value as keys, which contains the number of occurrences of a value for each field
 	 */
-	function printSingle($n, $result, & $counts, & $modoaltro, & $mododesiderataaltro, & $countSat, & $unsatDesiderata){
+	function printSingle($n, $result, & $counts, & $modoaltro, & $mododesiderataaltro, & $countSat){
 		global $modeToDesiderata;
 		$counts['tipoutente'][$result[1]]++;
 		$counts['modo'][$result[2]][$result[1]]++;
@@ -157,75 +167,78 @@
        		$counts['sitoweb'][$result[14]][$result[1]]++;
 		$counts['sitoweb'][$result[14]]['tot']++;
 
-		processUnsatDesiderata($result,  $unsatDesiderata)
+		processUnsatDesiderata($result,  $counts);
 ?>
-		<h2>Questionario <?=$n;?> del <?=$result[0]?></h2> 
-		<h3>In che rapporto sei con le associazioni e gli spazi sociali?</h3>
-		<ul>
-			<li <?php if ($result[1]==='no') echo 'class="checked" ';?>>non li frequento</li>
-			<li <?php if ($result[1]==='saltuario') echo 'class="checked" ';?> >li frequento saltuariamente</li>
-			<li <?php if ($result[1]==='assiduo') echo 'class="checked"';?> >frequento spazi del genere regolarmente, ma allo stesso modo frequento locali e pub a vocazione commerciale</li>
-			<li <?php if ($result[1]==='esclusivo') echo 'class="checked"';?> >frequento quasi esclusivamente spazi sociali e associazioni, ma non prendo mai o quasi mai parte all'organizzazione</li>
-			<li <?php if ($result[1]==='organizzatore') echo 'class="checked"';?> >frequento quasi esclusivamente spazi sociali e associazioni e prendo (spesso o a volte) parte all'organizzazione delle attivit&agrave;</li>
-		</ul>
-
-		<h3>In che modo vieni informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</h3>
-		<ul>
-			<li <?php if ($result[2]==='sito') echo 'class="checked"';?> >attraverso il sito web dello spazio</li>
-			<li <?php if ($result[2]==='facebook') echo 'class="checked"';?> >attraverso la pagina facebook dello spazio sociale</li>
-			<li <?php if ($result[2]==='web') echo 'class="checked"';?> >attraverso siti generici di eventi</li>
-			<li <?php if ($result[2]==='messenger') echo 'class="checked"';?> >con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</li>
-			<li <?php if ($result[2]==='mail') echo 'class="checked"';?> >via e-mail</li>
-			<li <?php if ($result[2]==='sms') echo 'class="checked"';?> >con degli SMS</li>
-			<li <?php if ($result[2]==='brochure') echo 'class="checked"';?> >con una brochure cartacea</li>
-			<li <?php if ($result[2]==='calendario') echo 'class="checked"';?> >attraverso un calendario esposto in sede</li>
-			<li <?php if ($result[2]==='passaparola') echo 'class="checked"';?> >con il passaparola</li>
-			<li 
-			<?php 
-				if ($result[2]==='altro' && isset($result[3])){
-					$x=trim($result[3]); 
-					if ($x!=''){
-						echo "class=\"checked\">Altro:$result[3]</li>\n";
-						$modoaltro[count($modoaltro)]=$result[3];
-					}
-				} else
-					echo ">Altro:</li>\n";
-			?> 
-		</ul>
-		<h3>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</h3>
-		<ul>
-    			<li <?=processDesiderata('sito', $result[$modeToDesiderata['sito']], $result[1], $counts, $result[2], $countSat);?> >attraverso il sito web dello spazio</li>
-			<li <?=processDesiderata('facebook', $result[$modeToDesiderata['facebook']], $result[1], $counts, $result[2], $countSat);?> >attraverso la pagina facebook dello spazio sociale</li>
-			<li <?=processDesiderata('web', $result[$modeToDesiderata['web']], $result[1], $counts, $result[2], $countSat);?> >attraverso siti generici di eventi</li>
-			<li <?=processDesiderata('messenger', $result[$modeToDesiderata['messenger']], $result[1], $counts, $result[2], $countSat);?> >con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</li>
-			<li <?=processDesiderata('mail', $result[$modeToDesiderata['mail']], $result[1], $counts, $result[2], $countSat);?> >via e-mail</li>
-			<li <?=processDesiderata('sms', $result[$modeToDesiderata['sms']], $result[1], $counts, $result[2], $countSat);?> >con degli SMS</li>
-			<li <?=processDesiderata('brochure', $result[$modeToDesiderata['brochure']], $result[1], $counts, $result[2], $countSat);?> >con una brochure cartacea</li>
-			<li <?=processDesiderata('calendario', $result[$modeToDesiderata['calendario']], $result[1], $counts, $result[2], $countSat);?> >attraverso un calendario esposto in sede</li>
-			<li <?php if (!(empty($result[$modeToDesiderata['altro']]))){ 	
-				$counts['mododesiderata']['altro'][$result[1]]++; 
-				$counts['mododesiderata']['altro']['tot']++; echo 'class="checked"';
-				$mododesiderataaltro[count($mododesiderataaltro)]=$result[12];
-			} ?> >Altro: <?=$result[12];?></li>
-		</ul>
-
-		<h3>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave;?</h3>
-		<ul>
-			<li <?php if ($result[13]==='giornaliero') echo 'class="checked"';?> >anche il giorno stesso va bene</li>
-			<li <?php if ($result[13]==='settimanale') echo 'class="checked"';?> >almeno una settimana prima</li>
-			<li <?php if ($result[13]==='mensile') echo 'class="checked"';?> >almeno un mese prima</li>
-		</ul>
-
-		<h3>Quanto &egrave; importante che una organizzazione abbia un 
-			proprio sito con un proprio nome di dominio (ad esempio www.miapiccolaassociazione.it)?</h3>
-		<ul>
-			<li <?php if ($result[14]==='molto') echo 'class="checked"';?> >&egrave; fondamentale</li>
-			<li <?php if ($result[14]==='abbastanza') echo 'class="checked"';?> >&egrave; opportuno ma pu&ograve; andare bene anche una pagina su una piattaforma esterna (ad esempio una pagina facebook)</li>
-			<li <?php if ($result[14]==='no') echo 'class="checked"';?> >non &egrave; necessario, &egrave; sufficiente una pagina su una piattaforma esterna (ad esempio una pagina facebook)</li>
-			<li <?php if ($result[14]==='nointernet') echo 'class="checked"';?> >non &egrave; necessario essere presenti su internet</li>
-		</ul>
-
-		<p>Se vuoi lascia pure un tuo pensiero: <?=$result[15];?></p>
+		<article class="questionario">
+			<h3>Questionario <?=$n;?> del <?=$result[0]?></h3> 
+			<h4>In che rapporto sei con le associazioni e gli spazi sociali?</h4>
+			<ul>
+				<li <?php if ($result[1]==='no') echo 'class="checked" ';?>>non li frequento</li>
+				<li <?php if ($result[1]==='saltuario') echo 'class="checked" ';?> >li frequento saltuariamente</li>
+				<li <?php if ($result[1]==='assiduo') echo 'class="checked"';?> >frequento spazi del genere regolarmente, ma allo stesso modo frequento locali e pub a vocazione commerciale</li>
+				<li <?php if ($result[1]==='esclusivo') echo 'class="checked"';?> >frequento quasi esclusivamente spazi sociali e associazioni, ma non prendo mai o quasi mai parte all'organizzazione</li>
+				<li <?php if ($result[1]==='organizzatore') echo 'class="checked"';?> >frequento quasi esclusivamente spazi sociali e associazioni e prendo (spesso o a volte) parte all'organizzazione delle attivit&agrave;</li>
+			</ul>
+	
+			<h4>In che modo vieni informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</h4>
+			<ul>
+				<li <?php if ($result[2]==='sito') echo 'class="checked"';?> >attraverso il sito web dello spazio</li>
+				<li <?php if ($result[2]==='facebook') echo 'class="checked"';?> >attraverso la pagina facebook dello spazio sociale</li>
+				<li <?php if ($result[2]==='web') echo 'class="checked"';?> >attraverso siti generici di eventi</li>
+				<li <?php if ($result[2]==='messenger') echo 'class="checked"';?> >con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</li>
+				<li <?php if ($result[2]==='mail') echo 'class="checked"';?> >via e-mail</li>
+				<li <?php if ($result[2]==='sms') echo 'class="checked"';?> >con degli SMS</li>
+				<li <?php if ($result[2]==='brochure') echo 'class="checked"';?> >con una brochure cartacea</li>
+				<li <?php if ($result[2]==='calendario') echo 'class="checked"';?> >attraverso un calendario esposto in sede</li>
+				<li <?php if ($result[2]==='passaparola') echo 'class="checked"';?> >con il passaparola</li>
+				<li 
+				<?php 
+					if ($result[2]==='altro' && isset($result[3])){
+						$x=trim($result[3]); 
+						if ($x!=''){
+							echo "class=\"checked\">Altro:$result[3]</li>\n";
+							$modoaltro[count($modoaltro)]=$result[3];
+						}
+					} else
+						echo ">Altro:</li>\n";
+				?> 
+			</ul>
+			<h4>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</h4>
+			<ul>
+	    			<li <?=processDesiderata('sito', $result[$modeToDesiderata['sito']], $result[1], $counts, $result[2], $countSat);?> >attraverso il sito web dello spazio</li>
+				<li <?=processDesiderata('facebook', $result[$modeToDesiderata['facebook']], $result[1], $counts, $result[2], $countSat);?> >attraverso la pagina facebook dello spazio sociale</li>
+				<li <?=processDesiderata('web', $result[$modeToDesiderata['web']], $result[1], $counts, $result[2], $countSat);?> >attraverso siti generici di eventi</li>
+				<li <?=processDesiderata('messenger', $result[$modeToDesiderata['messenger']], $result[1], $counts, $result[2], $countSat);?> >con un messaggio su internet (WhatsApp, Facebook Messenger, ...)</li>
+				<li <?=processDesiderata('mail', $result[$modeToDesiderata['mail']], $result[1], $counts, $result[2], $countSat);?> >via e-mail</li>
+				<li <?=processDesiderata('sms', $result[$modeToDesiderata['sms']], $result[1], $counts, $result[2], $countSat);?> >con degli SMS</li>
+				<li <?=processDesiderata('brochure', $result[$modeToDesiderata['brochure']], $result[1], $counts, $result[2], $countSat);?> >con una brochure cartacea</li>
+				<li <?=processDesiderata('calendario', $result[$modeToDesiderata['calendario']], $result[1], $counts, $result[2], $countSat);?> >attraverso un calendario esposto in sede</li>
+				<li <?php if (!(empty($result[$modeToDesiderata['altro']]))){ 	
+					$counts['mododesiderata']['altro'][$result[1]]++; 
+					$counts['mododesiderata']['altro']['tot']++; echo 'class="checked"';
+					$mododesiderataaltro[count($mododesiderataaltro)]=$result[12];
+				} ?> >Altro: <?=$result[12];?></li>
+			</ul>
+	
+			<h4>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave;?</h4>
+			<ul>
+				<li <?php if ($result[13]==='giornaliero') echo 'class="checked"';?> >anche il giorno stesso va bene</li>
+				<li <?php if ($result[13]==='settimanale') echo 'class="checked"';?> >almeno una settimana prima</li>
+				<li <?php if ($result[13]==='mensile') echo 'class="checked"';?> >almeno un mese prima</li>
+			</ul>
+	
+			<h4>Quanto &egrave; importante che una organizzazione abbia un 
+				proprio sito con un proprio nome di dominio (ad esempio www.miapiccolaassociazione.it)?</h4>
+			<ul>
+				<li <?php if ($result[14]==='molto') echo 'class="checked"';?> >&egrave; fondamentale</li>
+				<li <?php if ($result[14]==='abbastanza') echo 'class="checked"';?> >&egrave; opportuno ma pu&ograve; andare bene anche una pagina su una piattaforma esterna (ad esempio una pagina facebook)</li>
+				<li <?php if ($result[14]==='no') echo 'class="checked"';?> >non &egrave; necessario, &egrave; sufficiente una pagina su una piattaforma esterna (ad esempio una pagina facebook)</li>
+				<li <?php if ($result[14]==='nointernet') echo 'class="checked"';?> >non &egrave; necessario essere presenti su internet</li>
+			</ul>
+	
+			<p>Se vuoi lascia pure un tuo pensiero: <?=$result[15];?></p>
+		</article>
+		<p>Torna all'<a href="#indice">indice</a></p>
 <?php
 	}
 
@@ -247,6 +260,10 @@ function printArray($a){
 		echo "\t\t<li>$v</li>\n";
 	echo "\t</ul>\n";	
 }
+	echo "<section id=\"surveydata\"> \n";
+	echo "\t<h2 id=\"questionari\">Elenco dei questionari compilati</h2>\n";
+	echo "\t<p>Nel seguito troverete elencati i singoli questionari sottomessi, aggiornati in tempo reale.</p>\n";
+
 	$handle = fopen('risultati.tsv', 'r') or die('Unable to open file');
 	$i=1;
 	//skip header
@@ -258,16 +275,27 @@ function printArray($a){
         	$i++;
     	}
 	fclose($handle);
+echo "</section> \n"
 ?>
+<section id="dati">
+	<h2>Dati</h2>
+	<p>&Egrave anche disponibile un <a href="risultati.tsv" type="text/tab-separated-values">file tsv</a> con i risultati,
+	 anch'esso aggiornato in tempo reale, ed un file <a href="README.txt">README</a> che spiega come interpretare il file tsv. Ricordiamo che i risultati del sondaggio sono rilasciati
+	con licenza <a href="https://creativecommons.org/licenses/by/3.0/it/deed.it">Creative Commons Attribuzione 3.0 Italia (CC BY 3.0 IT)</a>.  Si consiglia di usare la URL
+	di questa pagina per indicare la fonte, nel caso in cui decidiate di riutilizzare questi dati.
+	</p>
 
-<section>
-<h2 id="aggregates">Risultati Aggregati</h2>
+	<p>Torna all'<a href="#indice">indice</a></p>
+</section>
+
+<section id="aggregati">
+<h2 >Risultati Aggregati</h2>
 
 <p>In questa sezione vengono riportati i risultati aggregati delle risposte ai vari quesiti del questionario. </p>
 
 <p>La prima domanda del questionario
 serve a capire il posizionamento di chi compila il questionario rispetto agli spazi sociali e alle attivit&agrave; aggregative. I profili rappresentati
-individuano variano da persone che non hanno alcun contatto con gli spazi sociali fino a chi ne &egrave; pienamente coinvolto.  In seguito
+variano da persone che non hanno alcun contatto con gli spazi sociali fino a chi ne &egrave; pienamente coinvolto.  In seguito
 i vari gradi di coinvolgimento verranno indicati da 0 (nessun coinvolgimento) a 4 (pienamente coinvolto). Nell'ultima colonna viene riportato il numero
 di utenti che hanno dato la risposta corrispondente.</p>
 
@@ -300,6 +328,8 @@ di utenti che hanno dato la risposta corrispondente.</p>
 	</tr>
 </table>
 
+<p>Torna all'<a href="#indice">indice</a></p>
+
 <p>Nelle seguenti tabelle vengono riportati i dati sulle risposte ai restati quesiti, aggregati per tipologia di utente (da 0 per indicare nessun 
 coinvolgimento nelle attivit&agrave; degli spazi sociali a 4 per indicare un alto coinvolgimento) e i valori totali.</p>
 <table>
@@ -330,6 +360,8 @@ coinvolgimento nelle attivit&agrave; degli spazi sociali a 4 per indicare un alt
 <p>Seguono le risposte che gli utenti hanno indicato scegliendo l'opzione <em>Altro</em></p>
 <?php printArray($modoaltro); ?>
 
+<p>Torna all'<a href="#indice">indice</a></p>
+
 <table>
 	<caption>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti?</caption>
 	<tr>
@@ -358,6 +390,38 @@ coinvolgimento nelle attivit&agrave; degli spazi sociali a 4 per indicare un alt
 <p>Seguono le risposte che gli utenti hanno indicato scegliendo l'opzione <em>Altro</em></p>
 <?php printArray($mododesiderataaltro); ?>
 
+<p>Torna all'<a href="#indice">indice</a></p>
+
+<p>Il numero di utenti <em>soddisfatti</em> rispetto alle modalità di informazione degli eventi, ossia di utenti che vengono informati attraverso uno dei canali
+che hanno indicati nei desiderata &egrave; di <?=$countSat?>. Per i restanti, riportiamo nella tabella che segue le preferenze aggregate relative ai desiderata.</p>
+
+<table>
+	<caption>Come preferiresti essere informato di eventi e attivit&agrave; che potrebbero interessarti negli spazi che frequenti? Desiderata insoddisfatti.</caption>
+	<tr>
+		<th />
+		<th>0</th>
+		<th>1</th>
+		<th>2</th>
+		<th>3</th>
+		<th>4</th>
+		<th>Tot</th>
+	</tr>
+<?php 
+	printCountRow($counts, 'attraverso il sito web dello spazio','unsat','sito');
+	printCountRow($counts, 'attraverso la pagina facebook dello spazio sociale','unsat','facebook');
+	printCountRow($counts, 'attraverso siti generici di eventi','unsat','web');
+	printCountRow($counts, 'con un messaggio su internet (WhatsApp, Facebook Messenger, ...)','unsat','messenger');
+	printCountRow($counts, 'via e-mail','unsat','mail');
+	printCountRow($counts, 'con degli SMS','unsat','sms');
+	printCountRow($counts, 'con una brochure cartacea','unsat','brochure');
+	printCountRow($counts, 'attraverso un calendario esposto in sede','unsat','calendario');
+	printCountRow($counts, 'con una brochure cartacea','unsat','brochure');
+	printCountRow($counts, 'altro','unsat','altro');
+?> 
+</table>
+
+<p>Torna all'<a href="#indice">indice</a></p>
+
 <table>
 	<caption>Con quanto preavviso ti piacerebbe essere informato di eventi e attvit&agrave;?</caption>
 	<tr>
@@ -375,6 +439,8 @@ coinvolgimento nelle attivit&agrave; degli spazi sociali a 4 per indicare un alt
 	printCountRow($counts, 'almeno un mese prima','preavviso','mensile');
 ?>
 </table>
+
+<p>Torna all'<a href="#indice">indice</a></p>
 
 <table>
 	<caption>Quanto &egrave; importante che una organizzazione abbia un 
@@ -395,8 +461,7 @@ coinvolgimento nelle attivit&agrave; degli spazi sociali a 4 per indicare un alt
 	printCountRow($counts, 'non &egrave; necessario essere presenti su internet','sitoweb','nointernet');
 ?>
 </table>
-
-Soddisfatti <?=$countSat?>
+<p>Torna all'<a href="#indice">indice</a></p>
 </section>
 </body>
 </html>
