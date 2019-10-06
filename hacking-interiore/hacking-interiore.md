@@ -99,7 +99,7 @@ Dio è anche lo zero: è quella cosa che c'è quando non c'è niente. Quando non
 
 Come faccio a non esserci? Quando smetto di volere dopo aver avuto a sufficienza, non ci sono più, c'è solo Pace, c'è Dio. A volte è difficile riconoscere di aver
 già avuto a sufficienza. Ci vuole pratica. Anche se sembra semplice non è banale riuscirci, perchè a volte quando desideriamo o vogliamo qualcosa, è difficile
-rendersi conto che già abbiamo avuto a sufficienza e che possiamo essere felici così. Altre volte, e' semplicemente impossibile essere felici per come stiamo volendo che le cose vadano.
+rendersi conto che già abbiamo avuto a sufficienza e che possiamo essere felici così. Altre volte, e' semplicemente impossibile essere felici per come stiamo volendo che le cose vadano. Dobbiamo accettare di aver gia' raggiunto l'ottimo, o sperare in futuri nuovi sviluppi.
 
 Come fa a non esserci un'altra persona? Quando lei (o lui) ha già avuto a sufficienza ed è contenta e non vuole nient'altro, c'è solo la sua contentezza, c'è solo la sua Pace.
 
