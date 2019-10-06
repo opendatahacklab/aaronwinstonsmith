@@ -8,12 +8,13 @@ Lo studio della propria anima è un percorso interiore finalizzato a comprendere
 quando camminavo per le strade vedevo un fiume di persone che non erano minimamente interessate ai miei problemi e alla mia vita. Ora stò riscoprendo una
 fiducia negli altri che mi fa pensare che, in realtà, tutte le persone hanno un cuore e che, se avessero il tempo, si interesserebbero ai miei problemi, e che già sono
 sicuramente impegnate a prendersi cura dei loro amici e parenti. Adesso che ho raggiunto queste conclusioni, cammino nelle strade della città con serenità 
-e senza più il peso di prima. Questo è un esempio e ci possono essere temi  per sé più importanti o meno importanti. Man mano che si comprendono questi temi,
+e senza più il peso di prima.   
+Questo è un esempio e ci possono essere temi  per sé più importanti o meno importanti. Man mano che si comprendono questi temi,
 si ci libera da pesi e si acquisisce coraggio. Si affrontano difficoltà che erano state messe da parte. Si gode dei frutti che erano stati raccolti da tempo ma che, 
 tuttavia, non venivano consumati. Tutto questo conduce sempre più a una gioia e pace profonda.
 
 Il motivo per cui ti stò invitando a iniziare un percorso interiore è che a me piace tanto,
-lo ritengo importante e credo che anche a te, hacker, che vivi per la conoscenza, piacerà e troverai in esso risultati importanti per la tua vita.
+lo ritengo importante e credo che anche a te, hacker, che vivi per la conoscenza, piacerà e troverai in esso risultati importanti per la tua vita.   
 Inoltre, credo che nella cultura capitalistica in cui ci troviamo ci distraiamo facilmente da ciò che è veramente importante. C'è tutto un mondo nella propria 
 anima che vale la pena di scoprire, curare e far fiorire. La matematica e la tecnologia non bastano ad entrare in questo mondo. Per quanto la tecnologia sia 
 nobile ed al servizio dell'uomo, non è assolutamente sufficiente a fornire all'uomo ciò di cui ha più bisogno. Quando si riesce nell'allineare le proprie forze 
@@ -23,7 +24,7 @@ in ogni istante della sua vita. Questa pace è come un'estasi, un'estasi che non
 avere i mezzi per poter spendere la propria vita al fine di raggiungerla.
 
 Da buon hacker, usa la tua intuizione, leggi libri, fai pratica, studia da auto-didatta. Fai scoperte, pubblicale, confrontati con amici e altre persone.
-Oltre a tutto cio, è anche, per quanto ho capito, indispensabile che tu sia guidato da un esperto. Ogni cultura ha i suoi maestri: nell'oriente ci sono i 
+Oltre a tutto ciò, è anche (per quanto ho capito) indispensabile che tu sia guidato da un esperto. Ogni cultura ha i suoi maestri: nell'oriente ci sono i 
 maestri Sufi, ancora più ad oriente i maestri Zen. Nella cultura scientifica occidentale, ci sono gli psicologici o psichiatri.
 
 Un pregiudizio classico è che loro siano utili solo a chi ha seri disturbi interiori. Questo è un pregiudizio. Nulla vieta di intraprendere con uno psichiatra
@@ -82,9 +83,11 @@ rendermi conto se è un muro solido oppure un muro leggero di cartongesso. Ma sa
 nel tempo). Così come il muro, ogni altra cosa. Ciò che è vero riguardo l'universo è una serie di verità che degli uomini (gli scienziati) hanno prodotto e a cui 
 loro credono, e a cui io, fidandomi di loro, credo pure.
 
-Ritornando al discorso delle capacità di ogni uomo, un altro esempio è questo: io non mi perdo e riesco a tornare a casa grazie alla mia capacità di orientarmi. 
-Ciò che vale per me vale anche per le persone che conosco: esse hanno le mie stesse capacità. E inoltre, le persone più vicine a me, mi conoscono e sono felici
-per me quando sono felice e si dispiacciono quando sono triste.
+Ciò che vale per me vale anche per le persone che ho conosciuto e conoscerò: esse hanno le mie stesse capacità. E se non mi fermo nel mio ego, a pensare solo a "Io",
+vedo che loro sono sorprendenti come me. E' anche vero che ognuno e' diverso da me e da ogni altro. Ma questo, uscendo dal mio narcisismo, puo' solo arricchire la mia vita.
+Ritornando all'esempio della verità-credenza, un persona diversa da me vede cose che io non vedo e puo' quindi dirmi e farmi accedere a verità nuove. Non sarà gratis, perchè questo comporterà un minimo di cambiamento da parte mia, però ci saranno volte in cui ne varrà la pena. E, ad ogni modo, rispettando la verità dell'altro, posso semplicemente ammirare l'esistenza di un altro universo, diverso dal mio, con sue particolari caratteristiche e qualità.
+
+Se Io creo ogni cosa che c'e', Noi creiamo un mondo di infinite dimensioni.
 
 Questi esempi sono già sorprendenti e miracolosi. Pensando a queste cose, non ho desiderio di alcun altro miracolo. Certo, i miracoli di guarigione potrebbero
 essere importanti. Però, il corpo è una macchina meravigliosa: milioni di cellule che collaborano in perfetta sincronia. Anche vivendo per un solo giorno, il mio
@@ -96,9 +99,9 @@ Dio è anche lo zero: è quella cosa che c'è quando non c'è niente. Quando non
 
 Come faccio a non esserci? Quando smetto di volere dopo aver avuto a sufficienza, non ci sono più, c'è solo Pace, c'è Dio. A volte è difficile riconoscere di aver
 già avuto a sufficienza. Ci vuole pratica. Anche se sembra semplice non è banale riuscirci, perchè a volte quando desideriamo o vogliamo qualcosa, è difficile
-rendersi conto che già abbiamo avuto a sufficienza e che possiamo essere felici così.
+rendersi conto che già abbiamo avuto a sufficienza e che possiamo essere felici così. Altre volte, e' semplicemente impossibile essere felici per come stiamo volendo che le cose vadano.
 
-Lo stesso vale per un altra persona: quando vedo che lei (o lui) ha già avuto a sufficienza ed è contenta, c'è solo la sua contentezza, c'è solo la sua Pace.
+Come fa a non esserci un'altra persona? Quando lei (o lui) ha già avuto a sufficienza ed è contenta e non vuole nient'altro, c'è solo la sua contentezza, c'è solo la sua Pace.
 
 Dio è una combinazione dello zero, di me stesso e delle altre persone che incontro. Infatti, non sempre sono bravo, non sempre una persona è buona, però c'è 
 lo zero e quindi quando smetto di volere, quando mi accontento a buona ragione di ciò che riesco a fare e di ciò che è una persona, ritrovo Dio.
